@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<link rel="stylesheet" href="bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+	<!--link href="Cover%20Template%20for%20Bootstrap_files/cover.css" rel="stylesheet"-->
+	<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>
+		欢迎来到工大圈子
+	</title>
+</head>
+<body style="background-image : url(background image.jpg);background-repeat : no-repeat;padding:0">
+<!--以前的body
+<body style="background-image : url(背景图片三.jpg);background-repeat : no-repeat;">
+-->
+<!--
+导航栏的编写
+-->
+
+
+        <!--div class="cover-container" style="background-image:url(背景图片三.jpg)"-->
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+	      	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        	<span class="sr-only">Toggle navigation</span>
+	        	<span class="icon-bar"></span>
+	        	<span class="icon-bar"></span>
+	        	<span class="icon-bar"></span>
+	      	</button>
+	      	<a class="nav-brand" href="#">
+	      		<img alt="HIT-group" src="brand.gif" />
+	      	</a>
+	      	<p class="navbar-text"><strong>工大圈子</strong></p>
+	    </div>
+
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	    	<ul class="nav navbar-nav" style="float:left">
+				<li role="presentation" class="active"><a href="#">Home</a></li>
+		    	<li role="presentation" class="active"><a href="#">Contact</a></li>
+		    	<li role="presentation" class="active"><a href="#">Features</a></li>
+		    </ul>
+
+			<ul class="nav navbar-nav" style="float:right">
+				<li role="presentation" class="dropdown active">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+	      				下拉菜单 <span class="caret"></span>
+	    			</a>
+	    			<ul class="dropdown-menu">
+	      				<li class="btn"><a href="#">子菜单一</a></li>
+	      				<li class="btn"><a href="#">子菜单二</a></li>
+	    			</ul>
+				</li>
+			    <li role="presentation" class="active"><a href="#">导航</a></li>
+				<li role="presentation" class="active"><a href="#">导航</a></li>
+			</ul>
+	    </div>
+	</div>
+</nav>
+<!--
+class = “active” 不知道具体有什么用途
+JavaScript下拉菜单插件
+-->
+<div class="jumbotron" style="background-image:url(background image.jpg)">
+	<div class="container-fluid">
+		<div class="row" id="context-head">
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		</div>
+
+		<div class="row" id="context-body">
+			<div class="col-md-6">
+				<h1>Hello, world!</h1>
+				<h2>Nice to meet you.</h2>
+				<p>you can write anything you want to write here.</p>
+				<p><a class="btn btn-primary btn-lg" href="http://v3.bootcss.com/css/#forms" role="button" target="_blank">Learn more</a></p>
+			</div>
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-3">
+				<form>
+					<div class="form-group">
+						<label for="username">用户名：</label>
+						<input type="text" class="form-control" id = "username" placeholder="Username">
+						<label for="username">密码：</label>
+						<input type="password" class="form-control" id = "username" placeholder="Password">
+						<br/>
+						<a href="#" type="submit" class="btn btn-default" style="float:left">登录</a>
+						<a href="#" class="btn btn-default" style="float:left">注册</a>
+						<a href="#" class="btn btn-default" role="button" target="_blank" style="float:right">查看帮助?</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="text-align:center">
+	<p class="lead">copyright @ hit-2013-cs-class3</p>
+</div>
+</body>
+</html>
