@@ -12,21 +12,21 @@
 	</title>
 	<script>
 		function func1(){
-			document.getElementById("button1").class = "active";
-			document.getElementById("button2").class = "";
-			document.getElementById("button3").class = "";
+			document.getElementById("button1").className = "active";
+			document.getElementById("button2").className = "";
+			document.getElementById("button3").className = "";
 			document.getElementById("info").innerHTML="Button1";
 		}
 		function func2(){
-			document.getElementById("button1").class = "";
-			document.getElementById("button2").class = "active";
-			document.getElementById("button3").class = "";
+			document.getElementById("button1").className = "";
+			document.getElementById("button2").className = "active";
+			document.getElementById("button3").className = "";
 			document.getElementById("info").innerHTML="Button2";
 		}
 		function func3(){
-			document.getElementById("button1").class = "";
-			document.getElementById("button2").class = "";
-			document.getElementById("button3").class = "active";
+			document.getElementById("button1").className = "";
+			document.getElementById("button2").className = "";
+			document.getElementById("button3").setAttribute("class","active");
 			document.getElementById("info").innerHTML="Button3";
 		}
 	</script>
@@ -78,15 +78,14 @@
 				<div class="row form_group">
 					<label>This is the area that you write dowm your information</label>
 					<form>
-						<textarea style="height:100px;width:750px;max_height:100px;max_width:750px;text_align:left;" class="form_control" value="Write something here." onclick="this.innerHTML=''">
-						Write down something here.
+						<textarea style="height:100px;width:750px;max_height:100px;max_width:750px;min_height:100px;min_width:750px;text_align:left;" class="form_control" placeholder="Write something here.">
 						</textarea>
 					</form>
 				</div>
 				<ul class="nav nav-tabs">
 				  	<li role="presentation" class="active" onclick="func1()" id="button1"><a href="#">Button1</a></li>
-				  	<li role="presentation" onclick="func2()" id="button2"><a href="#">Button2</a></li>
-				  	<li role="presentation" onclick="func3()" id="button3"><a href="#">Button3</a></li>
+				  	<li role="presentation" class="" onclick="func2()" id="button2"><a href="#">Button2</a></li>
+				  	<li role="presentation" class="" onclick="func3()" id="button3"><a href="#">Button3</a></li>
 				</ul>
 				<div class="row">
 					<p id="info">

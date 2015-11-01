@@ -51,7 +51,7 @@
 	</div>
 </nav>
 <div class="jumbotron" style="background-image:url(backgroundimage.jpg)">
-<form>>
+<form method="post">
 	<div class="container" style="text-align:center">
 			<div class="row">
 				<div class="col-md-1 col-md-offset-4"><label>邮箱</label></div>
@@ -68,7 +68,7 @@
 						</div>
 						<div class="col-md-4" style="float:left">
 							<label>女</label>
-							<input type="radio"name="sex" value="Female">
+							<input type="radio" name="sex" value="Female">
 						</div>
 					</div>
 				</div>
@@ -101,6 +101,13 @@
 			</div>
 			<br />
 			<div class="row">
+				<div class="col-md-1 col-md-offset-4">
+				<input onchange="showpic(this)" accept="image/*" type="file" name="file1" />
+				</div>
+				<img src="#" id="image1" style="width:100px;height:100px;display:none" />
+			</div>
+			<br />
+			<div class="row">
 				<div class="col-md-2 col-md-offset-5">
 				<a href="http://www.baidu.com/">
 					<input class="btn btn-primary" style="height:30px;width:50%" type="submit" id="submit" value="确认修改">
@@ -120,3 +127,17 @@
 </div>
 </body>
 </html>
+
+<script type="text/javascript">
+	function showpic(Pic){
+		var iPic = Pic.files[0];
+		var irPic = new FileReader();
+		irPic.onload = function(){
+			var url = irPic.result;
+			x = document.getElementById("image1");
+			x.src = url;
+			x.style.display = "";
+		}
+		irPic.readAsDataURL(iPic);
+	}
+</script>
