@@ -46,7 +46,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'HITCircles.wsgi.application'
 DATABASES = {
     'default': {
         'NAME': 'hitcircles',
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'USER': 'hitc_django',
         'PASSWORD': 'googheghhgfdjk',
         'Host': 'localhost',
