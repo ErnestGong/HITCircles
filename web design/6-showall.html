@@ -10,26 +10,6 @@
 	<title>
 		查看与发布
 	</title>
-	<script>
-		function func1(){
-			document.getElementById("button1").className = "active";
-			document.getElementById("button2").className = "";
-			document.getElementById("button3").className = "";
-			document.getElementById("info").innerHTML="<strong>Button1</strong>";
-		}
-		function func2(){
-			document.getElementById("button1").className = "";
-			document.getElementById("button2").className = "active";
-			document.getElementById("button3").className = "";
-			document.getElementById("info").innerHTML="Button2";
-		}
-		function func3(){
-			document.getElementById("button1").className = "";
-			document.getElementById("button2").className = "";
-			document.getElementById("button3").setAttribute("class","active");
-			document.getElementById("info").innerHTML="Button3";
-		}
-	</script>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
@@ -75,52 +55,34 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9">
-				<div class="row form_group">
-					<label>This is the area that you write dowm your information</label>
-					<form>
-						<textarea style="height:100px;width:750px;max_height:100px;max_width:750px;min_height:100px;min_width:750px;text_align:left;" class="form_control" placeholder="Write something here.">
-						</textarea>
-					</form>
+				<div class="row" style="background-color:purple">
+					<p>群组名在这显示</p>
 				</div>
-				<ul class="nav nav-tabs">
-				  	<li role="presentation" class="active" onclick="func1()" id="button1"><a href="#">Button1</a></li>
-				  	<li role="presentation" class="" onclick="func2()" id="button2"><a href="#">Button2</a></li>
-				  	<li role="presentation" class="" onclick="func3()" id="button3"><a href="#">Button3</a></li>
-				</ul>
-				<div class="row">
-					<p id="info">
-						Button1.
+				<div class="row" style="background-color:blue">
+					<p>群公告在这显示</p>
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<p>可以这么大</p>
+				</div>
+				<div class="row" style="background-color:red">
+					<p>
+						群信息显示
 					</p>
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<p>可以更大</p>
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="row" style="background-color:white">
-					<div class="col-md-4">
-						<img src="brand.gif"/>
-					</div>
-					<div class="col-md-8">
-						<p>name of user</p>
-					</div>
-				</div>
-				<div class="row" style="background-color:white">
-					<div class="col-md-4">
-						<p style="font-size:18px">关注你:</p>
-					</div>
-					<div class="col-md-2">
-						<p style="color:blue;font-size:18px">522</p>
-					</div>
-					<div class="col-md-4">
-						<p style="font-size:18px">你关注:</p>
-					</div>
-					<div class="col-md-2">
-						<p style="color:blue;font-size:18px">522</p>
-					</div>
-				</div>
-				<div class="row" style="background-color:red">
-					<div class="col-md-12">
-						<p>忘了这里干啥的了。</p>
-					</div>
-				</div>
+
+				<p><a href="#">用户信息</a></p>
+				
 			</div>
 		</div>
 	</div>

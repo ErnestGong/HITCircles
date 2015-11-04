@@ -55,22 +55,27 @@
 	<div class="container" style="text-align:center">
 			<div class="row">
 				<div class="col-md-1 col-md-offset-4"><label >用户名</label></div>
-				<div class="col-md-4"><input type="Text" id="username"></div>
+				<div class="col-md-4"><input type="Text" id="username" name="username"></div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4"><label >昵称</label></div>
+				<div class="col-md-4"><input type="Text" id="nickname" name="nickname"></div>
 			</div>
 			<br />
 			<div class="row">
 				<div class="col-md-1 col-md-offset-4"><label >密码</label></div>
-				<div class="col-md-4"><input type="Password" id="password"></div>
+				<div class="col-md-4"><input type="Password" id="password" name="password"></div>
 			</div>
 			<br />
 			<div class="row">
 				<div class="col-md-1 col-md-offset-4"><label >确认密码</label></div>
-				<div class="col-md-4"><input type="Password" id="password"></div>
+				<div class="col-md-4"><input type="Password" name="password" id="password"></div>
 			</div>
 			<br />
 			<div class="row">
 				<div class="col-md-1 col-md-offset-4"><label>邮箱</label></div>
-				<div class="col-md-4"><input type="Email" id="email"></div>
+				<div class="col-md-4"><input type="Email" name="email" id="email"></div>
 			</div>
 			<br />
 			<div class="row">
@@ -90,30 +95,55 @@
 			</div>
 			<br />
 			<div class="row">
-				<div class="col-md-1 col-md-offset-4"><label>生日</label></div>
-				<div class="col-md-4 col-md-offset-1">
-					<div class="row">
-						<div class="col-md-3">
-							<input type="text" id="years" style="width:90%">
-						</div>
-						<div class="col-md-1">
-							<label>年</label>
-						</div>
-						<div class="col-md-3">
-							<input type="text" id="months" style="width:90%">
-						</div>
-						<div class="col-md-1">
-							<label>月</label>
-						</div>
-						<div class="col-md-3">
-							<input type="text" id="days" style="width:90%">
-						</div>
-						<div class="col-md-1">
-							<label>日</label>
-						</div>
-					</div>
+				<div class="col-md-1 col-md-offset-4"><label>PublishDate</label></div>
+				<div class="col-md-4">
+					<select name="YYYY" id="YYYY" onchange="YYYYDD(this.value)">
+				    	<option  value="">请选择 年</option>
+				  	</select>
+				  	<select name="MM" id="MM" onchange="MMDD(this.value)">
+				    	<option value="">选择 月</option>
+				  	</select>
+				  	<select name="DD" id="DD">
+				    	<option value="">选择 日</option>
+				  	</select>
 				</div>
 			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4"><label >姓名</label></div>
+				<div class="col-md-4"><input type="Text" id="name" name="name"></div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4"><label >学号</label></div>
+				<div class="col-md-4"><input type="Text" id="school_id" name="school_id"></div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4"><label >学院</label></div>
+				<div class="col-md-4"><input type="Text" id="school" name="school"></div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4"><label >年级</label></div>
+				<div class="col-md-4">
+					<select name="grade" id="grade">
+				    	<option value="d1">大一</option>
+				    	<option value="d2">大二</option>
+				    	<option value="d3">大三</option>
+				    	<option value="d4">大四</option>
+				    	<option value="y1">研一</option>
+				    	<option value="y1">研二</option>
+				    	<option value="y3">研三</option>
+				    	<option value="b1">博一</option>
+				    	<option value="b2">博二</option>
+				    	<option value="b3">博三</option>
+				    	<option value="b4">博四</option>
+				    	<option value="b5">博五</option>
+				  	</select>
+				</div>
+			</div>
+			<br />
 			<br />
 			<div class="row">
 				<div class="col-md-4 col-md-offset-5">
@@ -130,3 +160,56 @@
 </body>
 </html>
 
+<script>
+	function YYYYMMDDstart()   
+    {
+           MonHead = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];   
+           //先给年下拉框赋内容   
+           var y  = new Date().getFullYear();   
+           for (var i = (y-100); i < (y+100); i++) //以今年为准，前30年，后30年   
+                   document.getElementById("YYYY").options.add(new Option(" "+ i +" 年", i));   
+    
+           //赋月份的下拉框   
+           for (var i = 1; i < 13; i++)   
+                   document.getElementById("MM").options.add(new Option(" " + i + " 月", i));   
+    
+           document.getElementById("YYYY").value = y;   
+           document.getElementById("MM").value = new Date().getMonth() + 1;   
+           var n = MonHead[new Date().getMonth()];   
+           if (new Date().getMonth() ==1 && IsPinYear(YYYYvalue)) n++;   
+                writeDay(n); //赋日期下拉框Author:meizz   
+           document.getElementById("DD").value = new Date().getDate();   
+   }   
+   if(document.attachEvent)   
+       window.attachEvent("onload", YYYYMMDDstart);   
+   else   
+       window.addEventListener('load', YYYYMMDDstart, false);   
+   function YYYYDD(str) //年发生变化时日期发生变化(主要是判断闰平年)   
+   {   
+           var MMvalue = document.getElementById("MM").options[document.getElementById("MM").selectedIndex].value;   
+           if (MMvalue == ""){ var e = document.getElementById("DD"); optionsClear(e); return;}   
+           var n = MonHead[MMvalue - 1]; 
+           if (MMvalue ==2 && IsPinYear(str)) n++;   
+                writeDay(n)   
+   }
+   function MMDD(str)   //月发生变化时日期联动   
+   {   
+        var YYYYvalue = document.getElementById("YYYY").options[document.getElementById("YYYY").selectedIndex].value;   
+        if (YYYYvalue == ""){ var e = document.getElementById("DD"); optionsClear(e); return;}   
+        var n = MonHead[str - 1];   
+        if (str ==2 && IsPinYear(YYYYvalue)) n++;   
+        writeDay(n)
+   }   
+   function writeDay(n)   //据条件写日期的下拉框   
+   {   
+           var e = document.getElementById("DD"); optionsClear(e);   
+           for (var i=1; i<(n+1); i++)   
+                e.options.add(new Option(" "+ i + " 日", i));   
+   }
+   function IsPinYear(year)//判断是否闰平年   
+   {     return(0 == year%4 && (year%100 !=0 || year%400 == 0));}   
+   function optionsClear(e)   
+   {   
+        e.options.length = 1;   
+   }   
+</script>
