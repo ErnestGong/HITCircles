@@ -24,10 +24,10 @@
 	      	<a class="nav-brand" href="#">
 	      		<img alt="HIT-group" src="brand.gif" />
 	      	</a>
-	      	<p class="navbar-text"><strong>工大圈子</strong></p>
 	    </div>
 
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      	<p class="navbar-text"><strong>工大圈子</strong></p>
 	    	<ul class="nav navbar-nav" style="float:left">
 				<li role="presentation" class="active"><a href="#">Home</a></li>
 		    	<li role="presentation" class="active"><a href="#">Contact</a></li>
@@ -50,8 +50,11 @@
 	    </div>
 	</div>
 </nav>
-<div class="jumbotron" style="background-image:url(backgroundimage.jpg)">
-<form>>
+<div class="jumbotron" style="background-color:rgbs(0,0,0,0)">
+<div style="position:fixed; left:0px; top:0px; width:100%; height:100%">
+	<img src="backgroundimage.jpg" width="100%" height="100%"/>
+</div>
+<form>
 	<div class="container" style="text-align:center">
 			<div class="row">
 				<div class="col-md-1 col-md-offset-4"><label >用户名</label></div>
@@ -65,12 +68,13 @@
 			<br />
 			<div class="row">
 				<div class="col-md-1 col-md-offset-4"><label >密码</label></div>
-				<div class="col-md-4"><input type="Password" id="password" name="password"></div>
+				<div class="col-md-4"><input type="Password" id="password1" name="password" onblur="check()"></div>
 			</div>
 			<br />
 			<div class="row">
 				<div class="col-md-1 col-md-offset-4"><label >确认密码</label></div>
-				<div class="col-md-4"><input type="Password" name="password" id="password"></div>
+				<div class="col-md-4"><input type="Password" name="password" id="password2" onblur="check()"></div>
+				<div class="col-md-2 col-md-pull-1"><label id="warn" style="color:red;font-size:17px"></label></div>
 			</div>
 			<br />
 			<div class="row">
@@ -161,7 +165,21 @@
 </html>
 
 <script>
-	function YYYYMMDDstart()   
+	function check()
+	{ 
+		if(password1.value!=password2.value)
+		{
+			document.getElementById("warn").innerHTML = "*两次密码不一致*";
+			document.getElementById("submit").disabled = "disabled";
+			password2.value = "";
+		}
+		else{
+			document.getElementById("warn").innerHTML = "";
+			document.getElementById("submit").disabled = "";
+		}
+	}
+	//以下是选择日期用的
+	function YYYYMMDDstart()
     {
            MonHead = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];   
            //先给年下拉框赋内容   

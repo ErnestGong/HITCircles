@@ -11,15 +11,16 @@
 		欢迎来到工大圈子
 	</title>
 </head>
-<body style="background-image : url(backgroundimage.jpg);background-repeat : no-repeat;padding:0">
+<body style="background-image : url(backgroundimage.jpg);background-repeat : no-repeat;padding:0;background-size:100%">
 <!--以前的body
 <body style="background-image : url(背景图片三.jpg);background-repeat : no-repeat;">
 -->
 <!--
 导航栏的编写
 -->
-
-
+<div style="position:fixed; left:0px; top:0px; width:100%; height:100%">
+	<img src="backgroundimage.jpg" width="100%" height="100%"/>
+</div>
         <!--div class="cover-container" style="background-image:url(背景图片三.jpg)"-->
 <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
 	<div class="container-fluid">
@@ -33,10 +34,10 @@
 	      	<a class="nav-brand" href="#">
 	      		<img alt="HIT-group" src="brand.gif" />
 	      	</a>
-	      	<p class="navbar-text"><strong>工大圈子</strong></p>
 	    </div>
 
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      	<p class="navbar-text navbar-left"><strong>工大圈子</strong></p>
 	    	<ul class="nav navbar-nav" style="float:left">
 				<li role="presentation" class="active"><a href="#">Home</a></li>
 		    	<li role="presentation" class="active"><a href="#">Contact</a></li>
@@ -63,7 +64,7 @@
 class = “active” 不知道具体有什么用途
 JavaScript下拉菜单插件
 -->
-<div class="jumbotron" style="background-image:url(backgroundimage.jpg)">
+<div class="jumbotron" style="background-color:rgba(0,0,0,0)">
 	<div class="container-fluid">
 		<div class="row" id="context-head">
 		<br/>
