@@ -11,8 +11,11 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.messages import get_messages
 from user_auth.forms import RegisterForm, AddContent, Circle
+
+from guardian.shortcuts import assign_perm
+from django.contrib.auth.models import Group
 def index_not_login(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated() and request.user.is_active:
         return HttpResponseRedirect(reverse('site_message'))
     else:
         form = RegisterForm()
@@ -59,6 +62,7 @@ def site_message(request):
                     else:
                         c.circles.add(my_circle)
                         c.save()
+                        assign_perm('delete_content', request.user, c)
                         messages.success(request, '成功添加内容')
                     return HttpResponseRedirect(reverse('site_message'))
             return render(request, 'user/message.html', {'circle':circle, 'content':content, 'form':form, 'user':request.user, 'message':get_messages(request)})
@@ -74,9 +78,3 @@ def site_message(request):
     else:
         messages.error(request, '请先登录')
         return HttpResponseRedirect(reverse('index_not_login'))
-
-def delete_users(request):
-    User.objects.all().delete()
-    Profile.objects.all().delete()
-    messages.success(request, '成功删除所有用户和Profile')
-    return HttpResponseRedirect(reverse('index_not_login'))

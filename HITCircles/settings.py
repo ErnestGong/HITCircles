@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'user_auth',
     'HITCircles',
     'content',
+    'guardian',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -91,7 +92,11 @@ DATABASES = {
         },
     }
 }
-
+# authentication
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # default
+    'guardian.backends.ObjectPermissionBackend',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -111,3 +116,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+ANONYMOUS_USER_ID = -1

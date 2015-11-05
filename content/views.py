@@ -15,8 +15,12 @@ def delete_content(request):
             content_id = request.POST.get('delete_id')
             try:
                 content_id = int(content_id)
-                Content.objects.get(id=content_id).delete()
-                messages.success(request, '成功删除该条信息')
+                cont = Content.objects.get(id=content_id)
+                if request.user.has_perm('delete_content', cont):
+                    cont.delete()
+                    messages.success(request, '成功删除该条信息')
+                else:
+                    messages.error(request, '您没有删除权限')
             except:
                 messages.error(request, '请不要发出非法请求')
 
@@ -30,16 +34,17 @@ def delete_content(request):
 def view_content_profile(request, profile_id):
     # 不考虑用post的情况下,引入权限设置
     if request.user.is_authenticated() and request.user.is_active:
-        if profile_id:
+        if profile_id and int(profile_id) == request.user.profile.id:
             try:
                 p = Profile.objects.get(id=profile_id)
             except:
-                messages.error('请不要发出非法请求')
+                messages.error(request, '请不要发出非法请求')
                 return HttpResponseRedirect(reverse('site_message'))
             else:
                 content = p.content_set.all()
-                return render(request, 'content/my_mainpage.html', {'content':content, 'profile':p})
+                return render(request, 'content/my_mainpage.html', {'content':content, 'profile':p, 'user':request.user, 'message':get_messages(request)})
         else:
+            messages.error(request, '请查看本人的资料')
             return HttpResponseRedirect(reverse('site_message'))
     else:
         messages.error(request, '请先登录')
@@ -52,11 +57,15 @@ def view_content_circle(request, circle_id):
             try:
                 c = Circle.objects.get(id=circle_id)
             except:
-                messages.error('请不要发出非法请求')
+                messages.error(request, '请不要发出非法请求')
                 return HttpResponseRedirect(reverse('site_message'))
             else:
-                content = c.content_set.all()
-                return render(request, 'content/circle.html', {'content':content, 'circle': c})
+                if request.user.has_perm('view_circle', c):
+                    content = c.content_set.all()
+                    return render(request, 'content/circle.html', {'content':content, 'circle': c, 'user':request.user, 'message':get_messages(request)})
+                else:
+                    messages.error(request, '您没有权限查看这个circle的资料')
+                    return HttpResponseRedirect(reverse('site_message'))
         else:
             return HttpResponseRedirect(reverse('site_message'))
     else:

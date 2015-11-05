@@ -11,7 +11,8 @@ from .models import Profile, Circle
 from django.contrib import messages
 from django.contrib.messages import get_messages
 from .forms import RegisterForm, PersonalInfomations
-
+from django.contrib.auth.models import Group
+from guardian.shortcuts import assign_perm, remove_perm
 # Create your views here.
 
 def site_login(request):
@@ -84,11 +85,22 @@ def add_infomation(request):
                 request.user.first_name = cd['name']
                 for c in cd['circles']:
                     try:
+                       cir = Circle.objects.get(name=c)
+                    except:
+                        messages.error(request, '请不要发送非法请求')
+                        return HttpResponseRedirect(reverse('add_infomation'))
+                request.user.profile.circle_set.clear()
+                for cir_now in request.user.profile.circle_set.all():
+                    remove_perm('view_circle', request.user, cir_now)
+                for c in cd['circles']:
+                    try:
                         cir = Circle.objects.get(name=c)
                     except:
                         messages.error(request, '请不要发送非法请求')
                     else:
                         request.user.profile.circle_set.add(cir)
+                        assign_perm('view_circle', request.user, cir)
+
                 request.user.profile.save()
                 request.user.save()
                 profile.save()
@@ -120,8 +132,6 @@ def add_infomation(request):
     else:
         messages.error(request, '您的账户没有权限')
         return HttpResponseRedirect(reverse('index_not_login'))
-
-
 
 
 def site_logout(request):

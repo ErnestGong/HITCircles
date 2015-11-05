@@ -35,6 +35,6 @@ class PersonalInfomations(forms.Form):
 
 class AddContent(forms.Form):
     circle_user_choice=[]
-    title = forms.CharField(label='标题:', max_length=30, widget=forms.TextInput(attrs={'placeholder':'请输入标题,仅限30字'}))
-    content = forms.CharField(label='内容:', max_length=1000, widget=forms.Textarea(attrs={'placeholder':'请输入文章内容,仅限1000字'}))
+    title = forms.CharField(label='标题:', max_length=30, widget=forms.TextInput(attrs={'placeholder':'请输入标题,仅限30字','style':'width:90%;resize:none;'}))
+    content = forms.CharField(label='内容:', max_length=1000, widget=forms.Textarea(attrs={'placeholder':'请输入文章内容,仅限1000字','style':'width:90%;height:100px;resize:none;'}))
     circle = forms.MultipleChoiceField(label='Circle:', widget=forms.CheckboxSelectMultiple, choices=circle_user_choice)

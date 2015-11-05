@@ -26,7 +26,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index_not_login, name='index_not_login'),
     url(r'^message/$', views.site_message, name='site_message'),
-    url(r'^delete_users/$', views.delete_users, name='delete_users'),
     url(r'^content/', include('content.urls')),
     url(r'^',include('user_auth.urls'))
 ]
