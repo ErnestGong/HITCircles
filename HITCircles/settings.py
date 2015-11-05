@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for HITCircles project.
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'user_auth',
     'HITCircles',
+    'content',
 )
 
 MIDDLEWARE_CLASSES = (

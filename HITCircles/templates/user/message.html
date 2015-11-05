@@ -1,137 +1,145 @@
-<<!DOCTYPE html>
-<html lang="zh-CN">
-	<link rel="stylesheet" href="http://libs.useso.com/js/bootstrap/3.2.0/css/bootstrap.min.css">
-	<!--link href="Cover%20Template%20for%20Bootstrap_files/cover.css" rel="stylesheet"-->
-	<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-	<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>
-		我的主页
-	</title>
-</head>
-<body style="padding:0">
-<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-	      	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        	<span class="sr-only">Toggle navigation</span>
-	        	<span class="icon-bar"></span>
-	        	<span class="icon-bar"></span>
-	        	<span class="icon-bar"></span>
-	      	</button>
-	      	<a class="nav-brand" href="#">
-	      		<img alt="HIT-group" src="/static/brand.gif" />
-	      	</a>
-	      	<p class="navbar-text"><strong>工大圈子</strong></p>
-	    </div>
-
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	    	<ul class="nav navbar-nav" style="float:left">
-				<li role="presentation" class="active"><a href="#">Home</a></li>
-		    	<li role="presentation" class="active"><a href="#">Contact</a></li>
-		    	<li role="presentation" class="active"><a href="#">Features</a></li>
-		    </ul>
-
-			<ul class="nav navbar-nav" style="float:right">
-                {% if status == 'logged in' %}
-                <li role="presentation" class="active"><a href="#">{{ username }}</a></li>
-                <li role="presentation" class="active"><a href="/logout/">登出</a></li>
-                {% endif %}
-
-				<li role="presentation" class="dropdown active">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-	      				下拉菜单 <span class="caret"></span>
-	    			</a>
-	    			<ul class="dropdown-menu">
-	      				<li class="btn"><a href="#">子菜单一</a></li>
-	      				<li class="btn"><a href="#">子菜单二</a></li>
-	    			</ul>
-				</li>
-			    <li role="presentation" class="active"><a href="#">导航</a></li>
-				<li role="presentation" class="active"><a href="#">导航</a></li>
-			</ul>
-	    </div>
-	</div>
-</nav>
-
+{%extends 'base.html'%}
+{%block title%}
+查看与发布
+{%endblock%}
+{%block content%}
 <div class="jumbotron">
 	<div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <div class="alert alert-success alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>成功:</strong>
+                        {{ message.message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == 'warning' %}
+                    <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>警告:</strong>
+                        {{ message.message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>失败:</strong>
+                        {{ message.message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == 'info' %}
+                    <div class="alert alert-info alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>提示:</strong>
+                        {{ message.message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        <br />
+        {% endif %}
 		<div class="row">
-			<div class="col-md-9" style="border:1px solid #000">
-				<p>
-					{% if status == 'logged in' %}
-	                邮箱：{{ profile.email }}<br />
-	                {% if profile.sex == True %}性别：男性{% endif %}<br />
-	                {% if profile.sex == False %}性别：女性{% endif %}<br />
-	                出生年月日：{{ profile.birthday.year }}/{{ profile.birthday.month }}/{{ profile.birthday.day }}<br />
-	                {% endif %}
-					<img src="/static/tmp1.jpg" width="500px" height="500px">
-					<br />
-					<img src="/static/tmp2.jpg" width="500px" height="500px">
-					<br />
-					<img src="/static/tmp3.jpg" width="500px" height="500px">
-					<br />
-				</p>
+			<div class="col-md-9">
+				<div class="row form_group">
+					<label>This is the area that you write dowm your information</label>
+					<form action = "{% url 'site_message' %}" method = "post">
+                        {% csrf_token %}
+						{{ form.title.label_tag }}
+                        {{ form.title }} </input>
+                        {{ form.content.errors }}
+                        {{ form.content.label_tag }}
+                        {{ form.content }} </input>
+                        {{ form.circle.errors}}
+                        {{ form.circle.label_tag }}
+                        {{ form.circle }}
+                        <input class="btn btn-primary" style="height:30px;width:100%" type="submit" name="submit" value="提交注册">
+					</form>
+				</div>
+				<ul class="nav nav-tabs" role="tablist">
+                    {% for u in circle %}
+                        <li role="presentation"><a href="#{{ u.name }}" aria-controls={{ u.name }} role="tab" data-toggle="tab">{{ u.name }}</a></li>
+                    {% endfor %}
+                </ul>
+                <div class="tab-content">
+                    {% for cont in content %}
+                            {% for each_cont in cont %}
+                            {% if each_cont.1 %}
+                                {% if forloop.first and each_cont %}
+                                    <div role="tabpanel" class="tab-pane" id={{ each_cont.0 }}>
+                                {% endif %}
+                            <div class="row">
+				    		<div class="col-md-3">
+				    			<p>{{ each_cont.1.profile.nickname }}</p>
+				    		</div>
+				    		<div class="col-md-3 col-md-offset-4">
+                                <form action="{% url 'delete_content' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="delete_id" value={{ each_cont.1.id }} > </input>
+				    			    <input class="btn btn-primary" style="height:30px;width:100%" type="submit" name="submit" value="删除">
+                                </form>
+				    		</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>{{ each_cont.1.title }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                 <div class="col-md-12">
+                                    {{ each_cont.1.text }}
+                                 </div>
+                            </div>
+                                {% if forloop.last and each_cont %}
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <div role="tabpanel" class="tab-pane" id={{ each_cont.0 }}></div>
+                            {% endif %}
+                            {% endfor %}
+                    {% endfor %}
+                </div>
 			</div>
 			<div class="col-md-3">
-				<div class="container" style="border:1px solid #000">
-					<div class="row">
-						<div class="col-md-3">
-							<a href="#" class="active">按钮一</a>
-						</div>
-						<div class="col-md-3">
-							<a href="#" class="active">按钮二</a>
-						</div>
-						<div class="col-md-3">
-							<a href="#" class="active">按钮三</a>
-						</div>
-						<div class="col-md-3">
-							<a href="#" class="active">按钮四</a>
-						</div>
+				<div class="row" style="background-color:white">
+					<div class="col-md-4">
+						<img src="brand.gif"/>
 					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<a href="#" class="active">按钮五</a>
-						</div>
-						<div class="col-md-3">
-							<a href="#" class="active">按钮六</a>
-						</div>
-						<div class="col-md-3">
-							<a href="#" class="active">按钮七</a>
-						</div>
-						<div class="col-md-3">
-							<a href="#" class="active">按钮八</a>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<a href="#" class="active">按钮九</a>
-						</div>
-						<div class="col-md-3">
-							<a href="#" class="active">按钮十</a>
-						</div>
-						<div class="col-md-3">
-							<a href="#" class="active">按钮十一</a>
-						</div>
-						<div class="col-md-3">
-							<a href="#" class="active">按钮十二</a>
-						</div>
+					<div class="col-md-8">
+						<a href="{% url 'view_content_profile' user.profile.id  %}"> <p>{{ user.username }}</p> </a>
 					</div>
 				</div>
-				<hr />
-				<div class="container">
-					<div class="row" style="border:1px solid #000">
-						<p>这里用来显示短消息，推送消息，
-						<br />
-						<br />
-						所以请认真看看这个地方。</p>
+				<div class="row" style="background-color:white">
+					<div class="col-md-4">
+						<p style="font-size:18px">关注你:</p>
+					</div>
+					<div class="col-md-2">
+						<p style="color:blue;font-size:18px">522</p>
+					</div>
+					<div class="col-md-4">
+						<p style="font-size:18px">你关注:</p>
+					</div>
+					<div class="col-md-2">
+						<p style="color:blue;font-size:18px">522</p>
 					</div>
 				</div>
+				<div class="row" style="background-color:red">
+					<div class="col-md-12">
+						<p>忘了这里干啥的了。</p>
+					</div>
+				</div>
+                {% for cir in circle %}
+                    <a href="{% url 'view_content_circle' cir.id  %}"> <p>{{ cir.name }}</p> </a>
+                {% endfor %}
 			</div>
 		</div>
 	</div>
 </div>
-</body>
-</html>
+{%endblock%}

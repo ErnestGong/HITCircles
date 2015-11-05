@@ -13,12 +13,30 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Circle',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=100)),
+                ('statement', models.CharField(max_length=1000)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Profile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('birthday', models.DateField()),
-                ('sex', models.BooleanField()),
+                ('birthday', models.DateField(null=True)),
+                ('sex', models.CharField(max_length=10, null=True)),
+                ('phone_number', models.IntegerField(null=True)),
+                ('nickname', models.CharField(max_length=100, null=True)),
+                ('school', models.CharField(max_length=100, null=True)),
+                ('grade', models.CharField(max_length=10, null=True)),
+                ('school_id', models.IntegerField(null=True)),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
+        ),
+        migrations.AddField(
+            model_name='circle',
+            name='profile',
+            field=models.ManyToManyField(to='user_auth.Profile'),
         ),
     ]

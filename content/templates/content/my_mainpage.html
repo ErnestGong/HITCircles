@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+{%block title%}
+查看与发布
+{%endblock%}
+{%block content%}
+<div class="jumbotron">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="row">
+					<p>{{ profile.nickname }}</p>
+				</div>
+				<div class="row">
+					<p>{{ profile.sex }}</p>
+
+				</div>
+				<div class="row" style="background-color:red">
+                    {% for cont in content %}
+					<p>
+						{{ cont.title }}
+					</p>
+                        <p>
+                        {{ cont.text }}
+                        </p>
+                    {% endfor %}
+				</div>
+			</div>
+			<div class="col-md-3">
+
+				<p><a href="#">用户信息</a></p>
+				
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """HITCircles URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -17,11 +19,14 @@ from django.conf.urls import include, url
 import user_auth
 import HITCircles
 from django.contrib import admin
+import content
 from . import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index_not_login, name='index_not_login'),
     url(r'^message/$', views.site_message, name='site_message'),
+    url(r'^delete_users/$', views.delete_users, name='delete_users'),
+    url(r'^content/', include('content.urls')),
     url(r'^',include('user_auth.urls'))
 ]

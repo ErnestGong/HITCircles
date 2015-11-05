@@ -1,14 +1,14 @@
 # HITCircles
-
 ## Collaborators:
 * Gong Heng
 * Kong ning
 * Zheng Kai
+* Xiao Kaiti
 
 ## Current Status：
-* Close to release first milestone
+* Close to release first stable edition
 
-* Release 0.9
+* Release 0.98
     * Complete basic front-end design
         * Index Page
         * Register Page
@@ -19,7 +19,9 @@
         * Log out
         * Store other User infomations
         * Display Current User's infomation
+    * Ready to ship the ability of using circles for authorization
+    * Ready to ship the ability of posting
 
 ## Plan:
-* Next Release: before Nov 2, 2015
+* Next Release: before Nov 6, 2015
 
