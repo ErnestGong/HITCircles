@@ -22,7 +22,10 @@ from django.contrib import admin
 import content
 from . import views
 
+handler404 = 'HITCircles.views.return_404'
+
 urlpatterns = [
+    url(r'^error/$', views.return_404),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index_not_login, name='index_not_login'),
     url(r'^message/$', views.site_message, name='site_message'),

@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^register/$', views.site_register, name='site_register'),
     url(r'^add_infomation', views.add_infomation, name='add_infomation'),
     url(r'^logout/$', views.site_logout, name='site_logout'),
+    url(r'^auth_request/$', views.permission_request, name='permission_request'),
 ]

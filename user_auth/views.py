@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponseRedirect
 from . import models
-from .models import Profile, Circle
+from .models import Profile, Circle, PendingRequest
 from django.contrib import messages
 from django.contrib.messages import get_messages
 from .forms import RegisterForm, PersonalInfomations
@@ -23,7 +23,6 @@ def site_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                messages.success(request, '成功登录')
                 return HttpResponseRedirect(reverse('site_message'))
             else:
                 return HttpResponseRedirect(reverse('index_not_login'))
@@ -48,6 +47,7 @@ def site_register(request):
                 c_tmp = Circle.objects.get(name='public')
                 u_profile.save()
                 u_profile.circle_set.add(c_tmp)
+                assign_perm('add_circle', u, c_tmp)
                 u_profile.save()
                 u = authenticate(username=cd['username'], password=cd['password'])
                 # User.objects.create_user(username=cd['username'], password=cd['password'])
@@ -60,6 +60,30 @@ def site_register(request):
     else:
         return HttpResponseRedirect(reverse('index_not_login'))
 
+def permission_request(request):
+    if request.user.is_authenticated() and request.user.is_active:
+        if request.user.has_perm('user_auth.change_circle'):
+            if request.method == 'POST':
+                username = request.POST['username']
+                circle_name = request.POST['circle_name']
+                user = User.objects.get(username=username)
+                circle = Circle.objects.get(name=circle_name)
+                user.profile.circle_set.add(circle)
+                user.save()
+                # # permission query没有存放,本来为view_vircle
+                assign_perm('add_circle', user, circle)
+                PendingRequest.objects.get(username=username, circle_name=circle_name).delete()
+                messages.success(request, '成功为其赋权')
+                return HttpResponseRedirect(reverse('permission_request'))
+            else:
+                pr = PendingRequest.objects.all()
+                return render(request, 'user/pending_request.html', {'request':pr, 'messages':get_messages(request), 'user':request.user})
+        else:
+            messages.error(request, '您没有审核权限')
+            return HttpResponseRedirect(reverse('site_message'))
+    else:
+        messages.error(request, '请先登录')
+        return HttpResponseRedirect(reverse('index_not_login'))
 
 def add_infomation(request):
     if request.user.is_authenticated() and request.user.is_active:
@@ -83,23 +107,40 @@ def add_infomation(request):
                 profile.sex = cd['sex']
                 request.user.email = cd['email']
                 request.user.first_name = cd['name']
+                print '原始'
+                print cd['circles']
                 for c in cd['circles']:
                     try:
                        cir = Circle.objects.get(name=c)
                     except:
                         messages.error(request, '请不要发送非法请求')
                         return HttpResponseRedirect(reverse('add_infomation'))
-                request.user.profile.circle_set.clear()
+
+                old_cir = []
                 for cir_now in request.user.profile.circle_set.all():
-                    remove_perm('view_circle', request.user, cir_now)
-                for c in cd['circles']:
-                    try:
-                        cir = Circle.objects.get(name=c)
-                    except:
-                        messages.error(request, '请不要发送非法请求')
-                    else:
-                        request.user.profile.circle_set.add(cir)
-                        assign_perm('view_circle', request.user, cir)
+                    # permission query没有存放,本来为view_vircle
+                    old_cir.append(cir_now.name)
+                    if cir_now.name not in cd['circles']:
+                        request.user.profile.circle_set.remove(cir_now)
+                        remove_perm('add_circle', request.user, cir_now)
+                for c_new in cd['circles']:
+                    if c_new not in old_cir:
+                        try:
+                            cir_new = Circle.objects.get(name=c_new)
+                        except:
+                            messages.error(request, '请不要发送非法请求')
+                        else:
+                            try:
+                                PendingRequest.objects.get(circle_name=c_new, username=request.user.username)
+                            except:
+                                p = PendingRequest(circle_name=c_new, username=request.user.username)
+                                p.save()
+                                messages.info(request, '已经申请加入该circle')
+                            else:
+                                messages.info(request, '您已发出申请,等待审核')
+                            # request.user.profile.circle_set.add(cir_new)
+                            # # permission query没有存放,本来为view_vircle
+                            # assign_perm('add_circle', request.user, cir_new)
 
                 request.user.profile.save()
                 request.user.save()
@@ -119,7 +160,10 @@ def add_infomation(request):
             tmp['sex'] = profile.sex
             tmp['email'] = request.user.email
             tmp['name'] = request.user.first_name
-
+            circle_lst = []
+            for c_tmp in profile.circle_set.all():
+                circle_lst.append(c_tmp.name)
+            tmp['circles'] = circle_lst
             form = PersonalInfomations(initial=tmp)
             circleselectchoice = []
             c_all = Circle.objects.all()

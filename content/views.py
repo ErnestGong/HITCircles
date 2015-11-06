@@ -42,7 +42,7 @@ def view_content_profile(request, profile_id):
                 return HttpResponseRedirect(reverse('site_message'))
             else:
                 content = p.content_set.all()
-                return render(request, 'content/my_mainpage.html', {'content':content, 'profile':p, 'user':request.user, 'message':get_messages(request)})
+                return render(request, 'content/my_mainpage.html', {'content':content, 'profile':p, 'user':request.user, 'messages':get_messages(request)})
         else:
             messages.error(request, '请查看本人的资料')
             return HttpResponseRedirect(reverse('site_message'))
@@ -60,9 +60,10 @@ def view_content_circle(request, circle_id):
                 messages.error(request, '请不要发出非法请求')
                 return HttpResponseRedirect(reverse('site_message'))
             else:
-                if request.user.has_perm('view_circle', c):
+                # permission query没有存放,本来为view_vircle
+                if request.user.has_perm('add_circle', c):
                     content = c.content_set.all()
-                    return render(request, 'content/circle.html', {'content':content, 'circle': c, 'user':request.user, 'message':get_messages(request)})
+                    return render(request, 'content/circle.html', {'content':content, 'circle': c, 'user':request.user, 'messages':get_messages(request)})
                 else:
                     messages.error(request, '您没有权限查看这个circle的资料')
                     return HttpResponseRedirect(reverse('site_message'))

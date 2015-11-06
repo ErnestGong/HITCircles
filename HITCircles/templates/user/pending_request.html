@@ -1,0 +1,105 @@
+{%extends 'base.html'%}
+{%block title%}
+查看与发布
+{%endblock%}
+{%block content%}
+<div class="jumbotron">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+                {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                        <div class="alert alert-success alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>成功:</strong>
+                            {{ message.message }}
+                        </div>
+                    {% endif %}
+                    {% if message.tags == 'warning' %}
+                        <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>警告:</strong>
+                            {{ message.message }}
+                        </div>
+                    {% endif %}
+                    {% if message.tags == 'error' %}
+                        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>失败:</strong>
+                            {{ message.message }}
+                        </div>
+                    {% endif %}
+                    {% if message.tags == 'info' %}
+                        <div class="alert alert-info alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>提示:</strong>
+                            {{ message.message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            <br />
+            {% endif %}
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 style="color:#A67D3D">审核用户请求</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+				<div class="row" style="background-color:rgba(0,0,0,0);padding:1px">
+                    {% for req in request %}
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p><label>circle名：</label></p>
+                            </div>
+                            <div class="col-md-10">
+                                <p>{{ req.circle_name }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p><label>用户名:</label></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>{{ req.username }}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <form action="{% url 'permission_request' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="username" value={{ req.username }}>
+                                    <input type="hidden" name="circle_name" value={{ req.circle_name }}>
+                                    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="允许">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="float:left;width:100%;foreground-color:red" />
+                    {% endfor %}
+                    {% if not request %}
+                        <div class="row">
+                            <div class="col-md-3 col-md-offset-3">
+                                <p>没有用户请求信息</p>
+                            </div>
+                        </div>
+                    {% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}

@@ -16,25 +16,25 @@ circle_select_choice=[]
 
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(label='用户名:', max_length = 16, widget=forms.TextInput(attrs={'class':"form-control", 'placeholder':'请输入姓名,不超过16个字符'}))
-    password = forms.CharField(label='密码:', max_length = 16, widget=forms.PasswordInput(attrs={'class':"form-control", 'placeholder':'请输入密码,不超过16个字符'}))
+    username = forms.CharField(label='用户名:', max_length = 16, widget=forms.TextInput(attrs={'class':"form-control", 'placeholder':'请输入姓名,不超过16个字符(必填)'}))
+    password = forms.CharField(label='密码:', max_length = 16, widget=forms.PasswordInput(attrs={'class':"form-control", 'placeholder':'请输入密码,不超过16个字符(必填)'}))
 
 
 class PersonalInfomations(forms.Form):
-    email = forms.EmailField(label='邮箱:',widget=forms.EmailInput(attrs={'placeholder':'example@example.com'}))
+    email = forms.EmailField(label='邮箱:',widget=forms.EmailInput(attrs={'placeholder':'example@example.com(必填)'}))
     sex = forms.ChoiceField(label='性别:', choices=SEX_CHOICES)
     birthday = forms.DateField(label='生日:', required=False, widget=SelectDateWidget(years=years))
-    name = forms.CharField(label='真实姓名:', max_length=6, widget=forms.TextInput(attrs={'placeholder':'长度不超过6'}))
+    name = forms.CharField(label='真实姓名:', max_length=6, widget=forms.TextInput(attrs={'placeholder':'长度不超过6(必填)'}))
     phone_number = forms.IntegerField(label='手机号:',required=False, max_value=20000000000, widget=forms.TextInput(attrs={'placeholder':'138xxxxxxxx'}))
-    nickname = forms.CharField(label='昵称:', max_length=16, widget=forms.TextInput(attrs={'placeholder':'昵称'}))
+    nickname = forms.CharField(label='昵称:', max_length=16, widget=forms.TextInput(attrs={'placeholder':'昵称(必填)'}))
     school = forms.ChoiceField(label='学院:', choices=SCHOOL_CHOICES)
     grade = forms.ChoiceField(label='年级:', choices=GRADE_CHOICES)
-    school_id = forms.IntegerField(label='学号:', max_value=9999999999, widget=forms.TextInput(attrs={'placeholder':'输入10位学号'}))
+    school_id = forms.IntegerField(label='学号:', max_value=9999999999, widget=forms.TextInput(attrs={'placeholder':'输入10位学号(必填)'}))
     circles = forms.MultipleChoiceField(label='Circle:', widget=forms.CheckboxSelectMultiple, choices=circle_select_choice)
 
 
 class AddContent(forms.Form):
     circle_user_choice=[]
-    title = forms.CharField(label='标题:', max_length=30, widget=forms.TextInput(attrs={'placeholder':'请输入标题,仅限30字','style':'width:90%;resize:none;'}))
-    content = forms.CharField(label='内容:', max_length=1000, widget=forms.Textarea(attrs={'placeholder':'请输入文章内容,仅限1000字','style':'width:90%;height:100px;resize:none;'}))
+    title = forms.CharField(label='标题:', max_length=30, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'请输入标题,仅限30字(必填)','style':'width:90%;resize:none;'}))
+    content = forms.CharField(label='内容:', max_length=1000, widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder':'请输入文章内容,仅限1000字(必填)','style':'width:90%;height:100px;resize:none;'}))
     circle = forms.MultipleChoiceField(label='Circle:', widget=forms.CheckboxSelectMultiple, choices=circle_user_choice)

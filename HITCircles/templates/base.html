@@ -29,28 +29,34 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	   		<p class="navbar-text"><strong>工大圈子</strong></p>
 	    	<ul class="nav navbar-nav" style="float:left">
-				<li role="presentation"><a href="/message">Home</a></li>
-		    	<li role="presentation"><a href="#">Contact</a></li>
-		    	<li role="presentation"><a href="#">Features</a></li>
+				<li role="presentation"><a href="{% url 'index_not_login' %}">首页</a></li>
+                <li role="presentation"><a href="#">关于我们</a></li>
+                {% if user.username %}
+				<li role="presentation" class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+	      				查看资料 <span class="caret"></span>
+	    			</a>
+	    			<ul class="dropdown-menu">
+	      				<li class="btn"><a href="{% url 'view_content_profile' user.profile.id  %}">查看个人信息</a></li>
+	    			</ul>
+				</li>
+                {% endif %}
 		    </ul>
 
 			<ul class="nav navbar-nav" style="float:right">
 			    {% if user.username %}
-                <li role="presentation"><a href= "#">{{ user.username }}</a></li>
+                <li role="presentation"><a href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a></li>
                 <li role="presentation"><a href="/logout/">登出</a></li>
                 {% endif %}
 
-				<li role="presentation" class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-	      				下拉菜单 <span class="caret"></span>
-	    			</a>
-	    			<ul class="dropdown-menu">
-	      				<li class="btn"><a href="#">子菜单一</a></li>
-	      				<li class="btn"><a href="#">子菜单二</a></li>
-	    			</ul>
-				</li>
-			    <li role="presentation" ><a href="#">导航</a></li>
-				<li role="presentation"><a href="/add_information">信息完善</a></li>
+
+                <!-- 限制审核权限,待修改 -->
+                {% if user.username == 'admin' %}
+			        <li role="presentation" ><a href="{% url 'permission_request' %}">审核用户申请</a></li>
+                {% endif %}
+                {% if user.username %}
+				<li role="presentation"><a href="/add_infomation">信息完善</a></li>
+                {% endif %}
 			</ul>
 	    </div>
 	</div>

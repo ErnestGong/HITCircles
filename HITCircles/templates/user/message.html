@@ -6,7 +6,7 @@
 <div class="jumbotron">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-9"> 
+			<div class="col-md-8">
                 <div class="row">
                     {% if messages %}
                         {% for message in messages %}
@@ -50,67 +50,73 @@
                     <br />
                     {% endif %}
                 </div>
-                
-				<div class="row form_group">
-                    <br />
-					<label style="color:#99CC32">来都来了，说点什么吧~</label>
-					<form action = "{% url 'site_message' %}" method = "post">
+                <div class="row" style="color:#99CC32"><h3>来都来了，说点什么吧~</h3></div>
+                <form class='form-horizontal' action = "{% url 'site_message' %}" method = "post">
+
                         {% csrf_token %}
-						<div class="row">
-                            {{ form.title.label_tag }}       
-                        </div>
-                        <div class="row">
+                        <div class="form-group">
+                            {{ form.title.label_tag }}
                             {{ form.title }}
                         </div>
-                        <div class="row">
+
+                        <div class="form-group">
                             {{ form.content.errors }}
                             {{ form.content.label_tag }}
-                        </div>
-                        <div class="row">
                             {{ form.content }}
                         </div>
-                        <div class="row">
+                        <div class="form-group">
                             {{ form.circle.errors}}
                             {{ form.circle.label_tag }}
-                        </div>
-                        <div class="row">
+                            <label class="checkbox-inline">
                             {{ form.circle }}
+                            </label>
                         </div>
-                        <div class="row">
+
+                        <div class="form-group">
                             <div class="col-md-2">
-                                 <input class="btn btn-primary" style="height:30px;width:100%" type="submit" name="submit" value="提交注册">
+                                 <input class="btn btn-primary" style="height:30px;width:100%" type="submit" name="submit" value="发布信息">
                             </div>
                         </div>
-                        
-					</form>
-				</div>
+                </form>
+                <div class="row">
+                    <h3>所有信息:</h3>
+                </div>
 				<ul class="nav nav-tabs" role="tablist">                    
                 {% for u in circle %}
+                    {% if forloop.counter == 1 %}
+                    <li role="presentation" class="active"><a href="#{{ u.name }}" aria-controls={{ u.name }} role="tab" data-toggle="tab">{{ u.name }}</a></li>
+                    {% else %}
                     <li role="presentation"><a href="#{{ u.name }}" aria-controls={{ u.name }} role="tab" data-toggle="tab">{{ u.name }}</a></li>
+                    {% endif %}
                 {% endfor %}
                 </ul>
                 <div class="tab-content">
                     {% for cont in content %}
                         {% for each_cont in cont %}
-                        
                             {% if each_cont.1 %}
                                 {% if forloop.first and each_cont %}
+                                    {% if forloop.parentloop.counter == 1 %}
+                                    <div role="tabpanel" class="tab-pane active" id="{{ each_cont.0 }}">
+                                    {% else %}
                                     <div role="tabpanel" class="tab-pane" id="{{ each_cont.0 }}">
+                                    {% endif %}
                                 {% endif %}
                                 <div class="row" style="padding:3px;margin-bottom:10px;background:#E6E8FA">
                                     <div class="row">
             				    		<div class="col-md-3">
-            				    			<p><a href="">{{ each_cont.1.profile.nickname }}</a></p>
+            				    			<p>昵称:{{ each_cont.1.profile.nickname }}</p>
             				    		</div>
                                         <div class="col-md-3">
-                                            <p><a href="">{{ each_cont.1.title }}</a></p>
+                                            <p>{{ each_cont.1.title }}</p>
                                         </div>
             				    		<div class="col-md-2 col-md-offset-4">
+                                            {% if user.profile.id == each_cont.1.profile.id %}
                                             <form action="{% url 'delete_content' %}" method="POST">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="delete_id" value={{ each_cont.1.id }} > </input>
             				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="删除">
                                             </form>
+                                            {% endif %}
             				    		</div>
                                     </div>
                                     <div class="row">
@@ -134,7 +140,7 @@
                 </div>
 			</div>
 
-			<div class="col-md-3">
+			<div class="col-md-3 col-md-offset-1">
                 <br />
 				<div class="row" style="background-color:white;padding:4px">
 					<div class="col-md-4">
