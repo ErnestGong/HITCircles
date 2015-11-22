@@ -33,7 +33,7 @@ def site_message(request):
             try:
                 circle = request.user.profile.circle_set.all()
             except:
-                messages.error('请不要发出非法请求')
+                messages.error(request, '请不要发出非法请求')
                 return HttpResponseRedirect(reverse('site_message'))
             else:
                 content = []
