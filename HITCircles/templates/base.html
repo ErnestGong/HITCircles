@@ -30,7 +30,8 @@
 	   		<p class="navbar-text"><strong>工大圈子</strong></p>
 	    	<ul class="nav navbar-nav" style="float:left">
 				<li role="presentation"><a href="{% url 'index_not_login' %}">首页</a></li>
-                <li role="presentation"><a href="#">关于我们</a></li>
+                <li role="presentation"><a href="{% url 'search_to_follow' %}">添加关注</a></li>
+                <li role="presentation"><a href="{% url 'censor_follow' %}">审查关注列表</a></li>
                 {% if user.username %}
 				<li role="presentation" class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -61,6 +62,27 @@
 	    </div>
 	</div>
     </nav>
+
+    {% if user.profile.censor_count %}
+    <br/>
+        <br/>
+        <br />
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+                <div class="row">
+    <div class="alert alert-info alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>注意:</strong>
+                有人向你发出关注请求
+    </div>
+        </div>
+        </div>
+        </div>
+        </div>
+    {% endif %}
 {% block content%}{% endblock %}
 <div style="text-align:center">
 	<p class="lead">copyright @ hit-2013-cs-class3</p>

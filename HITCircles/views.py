@@ -3,6 +3,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from user_auth.models import Profile
+from content.models import Follow
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 import datetime
@@ -38,7 +39,15 @@ def site_message(request):
             else:
                 content = []
                 for c in circle:
-                    tmp = c.content_set.all()
+                    if c.name == 'public':
+                        tmp = []
+                        for follow_usr_lst in Follow.objects.filter(follower=request.user.id):
+                            u = User.objects.get(id=follow_usr_lst.followed)
+                            p = u.profile
+                            p_content = p.content_set.all().filter(circles__name='public')
+                            tmp += p_content
+                    else:
+                        tmp = c.content_set.all()
                     result = []
                     for t_counter in tmp:
                         result.append([c.name, t_counter])

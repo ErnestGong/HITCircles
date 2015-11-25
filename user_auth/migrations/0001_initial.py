@@ -39,8 +39,14 @@ class Migration(migrations.Migration):
                 ('school', models.CharField(max_length=100, null=True)),
                 ('grade', models.CharField(max_length=10, null=True)),
                 ('school_id', models.BigIntegerField(null=True)),
+                ('follow_count', models.BigIntegerField(null=True)),
+                ('followed_count', models.BigIntegerField(null=True)),
+                ('censor_count', models.BigIntegerField(null=True)),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
+            options={
+                'permissions': (('open_relationship', 'Can follow freely'), ('censor_relationship', 'Can follow if the user agreed')),
+            },
         ),
         migrations.AddField(
             model_name='circle',

@@ -1,0 +1,68 @@
+{%extends 'base.html'%}
+{%block title%}
+评论
+{%endblock%}
+{%block content%}
+
+<div class="jumbotron">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md-2">
+						<p style="color:#A67D3D">评论:</p>
+					</div>
+				</div>
+				<hr />
+				<hr />
+				<div class="row" style="background-color:rgba(0,0,0,0);padding:1px">
+                    {% for cont in comment %}
+                    	<div class="col-md-12">
+                    		<div class="row">
+                    			<div class="col-md-1">
+                    				<p style="color:#A67D3D">
+										<label>评论者: </label>
+									</p>
+                    			</div>
+                    			<div class="col-md-9">
+                    				<p>{{ cont.profile.nickname }}</p>
+                    			</div>
+                    		</div>
+                    		<div class="row">
+                    			<div class="col-md-12">
+                    				<p>
+			                        	<label>内容:</label>
+				                    </p>
+                    			</div>
+                    		</div>
+                    		<div class="row">
+                    			<div class="col-md-12">
+                    				<p style="font-size:18px">
+			                        	{{ cont.text }}
+			                        </p>
+                    			</div>
+                    		</div>
+                    	</div>
+                    	<hr style="width:100%"/>
+                    {% endfor %}
+				</div>
+                <div class="row"><a href="{% url 'site_message' %}">返回</a></div>
+			</div>
+
+			<div class="col-md-3" style="margin-top:3px">
+				<h2><label>用户信息</label></h2>
+				<div class="row">
+					<p><small>用户名：<label style="color:#9F5F9F">{{ user.username }}</label></small></p>
+					<p><small>昵称：<label style="color:#9F5F9F">{{ user.profile.nickname }}</label></small></p>
+					<p><small>电话：<label style="color:#9F5F9F">{{ user.profile.phone_number }}</label></small></p>
+					<p><small>年级：<label style="color:#9F5F9F">{{ user.profile.grade }}</label></small></p>
+					<p><small>生日：<label style="color:#9F5F9F">{{ user.profile.birthday }}</label></small></p>
+					<p><small>性别：<label style="color:#9F5F9F">{{ user.profile.sex }}</label></small></p>
+					<p><small>学院：<label style="color:#9F5F9F">{{ user.profile.school }}</label></small></p>
+					<p><small>学号：<label style="color:#9F5F9F">{{ user.profile.school_id }}</label></small></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}

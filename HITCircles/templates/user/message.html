@@ -118,6 +118,27 @@
                                             </form>
                                             {% endif %}
             				    		</div>
+            				    		<div class="col-md-2 col-md-offset-4">
+                                            <form action="{% url 'process_thumb_up' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="thumb_up_id" value={{ each_cont.1.id }} > </input>
+            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="点赞 {{ each_cont.1.thumb_up }}次">
+                                            </form>
+            				    		</div>
+                                        <div class="col-md-2 col-md-offset-4">
+                                            <form action="{% url 'add_comment' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="cont_id" value={{ each_cont.1.id }} > </input>
+            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="评论">
+                                            </form>
+            				    		</div>
+                                        <div class="col-md-2 col-md-offset-4">
+                                            <form action="{% url 'show_comment' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="cont_id" value={{ each_cont.1.id }} > </input>
+            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="查看评论">
+                                            </form>
+            				    		</div>
                                     </div>
                                     <div class="row">
                                         
@@ -155,18 +176,13 @@
 						<p style="font-size:18px">关注你:</p>
 					</div>
 					<div class="col-md-2">
-						<p style="color:blue;font-size:18px">522</p>
+						<p style="font-size:18px"><a href="{% url 'view_followed' user.id %}">{{ user.profile.followed_count }}</a></p>
 					</div>
 					<div class="col-md-4">
 						<p style="font-size:18px">你关注:</p>
 					</div>
 					<div class="col-md-2">
-						<p style="color:blue;font-size:18px">522</p>
-					</div>
-				</div>
-				<div class="row" style="background-color:red">
-					<div class="col-md-12">
-						<p>忘了这里干啥的了。</p>
+						<p style="font-size:18px"><a href="{% url 'view_follower' user.id %}">{{ user.profile.follow_count }}</a></p>
 					</div>
 				</div>
                 {% for cir in circle %}
@@ -176,4 +192,5 @@
 		</div>
 	</div>
 </div>
-{%endblock%}
+</div>
+    {%endblock%}

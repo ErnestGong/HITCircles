@@ -3,10 +3,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponseRedirect
 from . import models
+from content.models import Follow, FollowSensor
 from .models import Profile, Circle, PendingRequest
 from django.contrib import messages
 from django.contrib.messages import get_messages
@@ -42,11 +43,14 @@ def site_register(request):
                 messages.error(request, '账号已被注册')
             else:
                 u = User.objects.create_user(username=cd['username'],password=cd['password'])
+                permission = Permission.objects.get(codename='open_relationship')
+                u.user_permissions.add(permission)
                 u.save()
                 u_profile = Profile(user = u)
                 c_tmp = Circle.objects.get(name='public')
                 u_profile.save()
                 u_profile.circle_set.add(c_tmp)
+
                 assign_perm('add_circle', u, c_tmp)
                 u_profile.save()
                 u = authenticate(username=cd['username'], password=cd['password'])
@@ -85,6 +89,140 @@ def permission_request(request):
         messages.error(request, '请先登录')
         return HttpResponseRedirect(reverse('index_not_login'))
 
+def search_to_follow(request):
+    if request.user.is_authenticated() and request.user.is_active:
+        if request.method == 'POST':
+            usr_lst = User.objects.filter(username=request.POST.get('name', -1))
+            return render(request, 'user/search_to_follow.html', {'usr_lst':usr_lst, 'messages':get_messages(request), 'user':request.user})
+        else:
+            return render(request, 'user/search_to_follow.html', {'messages':get_messages(request), 'user':request.user})
+    else:
+        messages.error(request, '请先登录')
+        return HttpResponseRedirect(reverse('index_not_login'))
+
+def add_follow(request):
+    if request.user.is_authenticated() and request.user.is_active:
+        if request.method == 'POST':
+            try:
+                usr = User.objects.get(id=int(request.POST['user_id']))
+                print usr.username
+            except:
+                messages.error(request, '请不要非法修改数据')
+                return HttpResponseRedirect(reverse('search_to_follow'))
+
+            if usr.has_perm('user_auth.open_relationship'):
+                if Follow.objects.filter(follower=request.user.id, followed=usr.id):
+                    messages.warning(request, '您已经添加过这名好友了')
+                else:
+                    f = Follow()
+                    f.follower = request.user.id
+                    f.followed = usr.id
+                    f.save()
+
+                    if request.user.profile.follow_count:
+                        request.user.profile.follow_count += 1
+                    else:
+                        request.user.profile.follow_count = 1
+                    request.user.profile.save()
+
+                    if usr.profile.followed_count:
+                        usr.profile.followed_count += 1
+                    else:
+                        usr.profile.followed_count = 1
+                    usr.profile.save()
+                    messages.success(request, '申请成功')
+            elif usr.has_perm('user_auth.censor_relationship'):
+                if FollowSensor.objects.filter(whoto=request.user.id, censor=usr.id):
+                    messages.info(request, '请耐心等待对方审核')
+                else:
+                    if Follow.objects.filter(follower=request.user.id, followed=usr.id):
+                        messages.warning(request, '您已经添加过这名好友了')
+                    else:
+                        f_censor = FollowSensor()
+                        f_censor.whoto = request.user.id
+                        f_censor.censor = usr.id
+                        f_censor.save()
+                        if usr.profile.censor_count:
+                            usr.profile.censor_count += 1
+                        else:
+                            usr.profile.censor_count = 1
+                        usr.profile.save()
+                        messages.info(request, '您已经成功发出请求')
+            else:
+                messages.error(request, '您申请关注的用户不允许被关注')
+
+            return HttpResponseRedirect(reverse('search_to_follow'))
+        else:
+            return HttpResponseRedirect(reverse('search_to_follow'))
+    else:
+        messages.error(request, '请先登录')
+        return HttpResponseRedirect(reverse('index_not_login'))
+
+def censor_follow(request):
+    if request.user.is_authenticated() and request.user.is_active:
+        if request.method == 'POST':
+            allow_id = request.POST.get('allow_id', -1)
+            if allow_id >= 0:
+                if Follow.objects.filter(follower=int(allow_id), followed=request.user.id):
+                    messages.warning(request, '您已经添加过这名好友了')
+                else:
+                    f = Follow()
+                    f.follower = int(allow_id)
+                    f.followed = request.user.id
+                    f.save()
+
+                    allow_usr = User.objects.get(id=int(allow_id))
+                    if allow_usr.profile.follow_count:
+                        allow_usr.profile.follow_count += 1
+                    else:
+                        allow_usr.profile.follow_count = 1
+
+                    if request.user.profile.followed_count:
+                        request.user.profile.followed_count += 1
+                    else:
+                        request.user.profile.followed_count = 1
+
+                    messages.success(request, '您已成功同意申请')
+                    request.user.profile.censor_count -= 1
+                    request.user.profile.save()
+                    f_censor = FollowSensor.objects.get(whoto=int(allow_id), censor=request.user.id).delete()
+            else:
+                messages.error(request, '请不要发送非法请求')
+            return HttpResponseRedirect(reverse('censor_follow'))
+        else:
+            censor_id = request.user.id
+            who_to_censor = FollowSensor.objects.filter(censor=censor_id)
+            profile_lst = []
+            for i in who_to_censor:
+                u = User.objects.get(id=i.whoto)
+                profile_lst.append(u.profile)
+            return render(request, 'user/censor_list.html', {'censor_lst':who_to_censor,'profile_lst':profile_lst, 'messages':get_messages(request), 'user':request.user})
+    else:
+        messages.error(request, '请先登录')
+        return HttpResponseRedirect(reverse('index_not_login'))
+
+def delete_follow(request):
+    if request.user.is_authenticated() and request.user.is_active:
+        if request.method == 'POST':
+            delete_id = request.POST.get('user_id', -1)
+            if delete_id > 0:
+                Follow.objects.get(follower=request.user.id, followed=int(delete_id)).delete()
+                if request.user.profile.follow_count:
+                    request.user.profile.follow_count -= 1
+                    request.user.profile.save()
+
+                delete_usr = User.objects.get(id=int(delete_id))
+                if delete_usr.profile.followed_count:
+                    delete_usr.profile.followed_count -= 1
+                    delete_usr.profile.save()
+            messages.success(request, '您已成功删除')
+            return HttpResponseRedirect(reverse('view_follower', args=(request.user.id,)))
+        else:
+            return HttpResponseRedirect(reverse('view_follower', args=(request.user.id,)))
+    else:
+        messages.error(request, '请先登录')
+        return HttpResponseRedirect(reverse('index_not_login'))
+
 def add_infomation(request):
     if request.user.is_authenticated() and request.user.is_active:
         u_registered = User.objects.get(username=request.user.username)
@@ -107,6 +245,28 @@ def add_infomation(request):
                 profile.sex = cd['sex']
                 request.user.email = cd['email']
                 request.user.first_name = cd['name']
+                auth_status = cd['follow_auth']
+
+                # process follow_auth
+
+                # get permmision
+                p_free = Permission.objects.get(codename='open_relationship')
+                p_censor = Permission.objects.get(codename='censor_relationship')
+                # clear the permission
+                try:
+                    request.user.user_permissions.remove(p_free)
+                except:
+                    pass
+                try:
+                    request.user.user_permissions.remove(p_censor)
+                except:
+                    pass
+
+                if auth_status == 'free':
+                    request.user.user_permissions.add(p_free)
+                elif auth_status == 'censor':
+                    request.user.user_permissions.add(p_censor)
+
                 print '原始'
                 print cd['circles']
                 for c in cd['circles']:
@@ -160,10 +320,17 @@ def add_infomation(request):
             tmp['sex'] = profile.sex
             tmp['email'] = request.user.email
             tmp['name'] = request.user.first_name
+            if request.user.has_perm('user_auth.open_relationship'):
+                tmp['follow_auth'] = 'free'
+            elif request.user.has_perm('user_auth.censor_relationship'):
+                tmp['follow_auth'] = 'censor'
+            else:
+                tmp['follow_auth'] = 'forbidden'
             circle_lst = []
             for c_tmp in profile.circle_set.all():
                 circle_lst.append(c_tmp.name)
             tmp['circles'] = circle_lst
+
             form = PersonalInfomations(initial=tmp)
             circleselectchoice = []
             c_all = Circle.objects.all()

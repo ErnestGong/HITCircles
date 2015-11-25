@@ -8,6 +8,7 @@ import datetime
 SEX_CHOICES=(('男性', '男性'), ('女性', '女性'))
 SCHOOL_CHOICES=(('计算机科学与技术','计算机科学与技术'), ('电信学院','电信学院'), ('理学院','理学院'))
 GRADE_CHOICES=(('大一','大一'), ('大二','大二'), ('大三','大三'), ('大四', '大四'), ('大五', '大五'), ('研一','研一') , ('研二','研二'), ('研三', '研三'),('博一', '博一'), ('博二', '博二'), ('博三','博三'))
+FOLLOW_AUTH_CHOICES=(('free', '允许关注'), ('censor', '关注前需要经过审核'), ('forbidden', '拒绝关注'))
 this_year = datetime.date.today().year
 years = range(this_year - 30, this_year - 5)
 
@@ -31,6 +32,7 @@ class PersonalInfomations(forms.Form):
     grade = forms.ChoiceField(label='年级:', choices=GRADE_CHOICES)
     school_id = forms.IntegerField(label='学号:', max_value=9999999999, widget=forms.TextInput(attrs={'placeholder':'输入10位学号(必填)'}))
     circles = forms.MultipleChoiceField(label='Circle:', widget=forms.CheckboxSelectMultiple, choices=circle_select_choice)
+    follow_auth = forms.ChoiceField(label='他人关注权限:', choices=FOLLOW_AUTH_CHOICES, widget=forms.RadioSelect)
 
 
 class AddContent(forms.Form):
