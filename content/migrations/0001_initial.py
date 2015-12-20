@@ -55,6 +55,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='comment',
             name='profile',
-            field=models.ForeignKey(to='user_auth.Profile'),
+            field=models.ForeignKey(to='user_auth.Profile', null=True),
         ),
     ]

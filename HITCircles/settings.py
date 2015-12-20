@@ -26,7 +26,8 @@ SECRET_KEY = '@_v^-vyxhv1@&idf=7_dqq((mn58z_vrj7aaljb0s5!*6g25#f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['.hitclrcles.com.', '.hitcircles.com', '.localhost.', '.localhost', '.106.186.18.98.', '.106.186.18.98']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.hitclrcles.com.', '.hitcircles.com', '.localhost.', '.localhost', '.192.241.184.155.', '.192.241.184.155']
 # DEBUG = True
 
 
@@ -83,14 +84,12 @@ WSGI_APPLICATION = 'HITCircles.wsgi.application'
 
 DATABASES = {
     'default': {
-        'NAME': 'hitcircles',
         'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'hitcircles',
         'USER': 'hitc_django',
-        'PASSWORD': 'fiwu&*32dg',
-        'Host': 'localhost',
-        'OPTIONS': {
-            'default-character-set':'utf8'
-        },
+        'PASSWORD': 'jowei*$3gj',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 # authentication
