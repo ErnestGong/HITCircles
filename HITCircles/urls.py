@@ -17,12 +17,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 import user_auth
-import HITCircles
+import hitcircles
 from django.contrib import admin
 import content
 from . import views
 
-handler404 = 'HITCircles.views.return_404'
+handler404 = 'hitcircles.views.return_404'
 
 urlpatterns = [
     url(r'^error/$', views.return_404),

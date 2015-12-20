@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@_v^-vyxhv1@&idf=7_dqq((mn58z_vrj7aaljb0s5!*6g25#f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['.hitclrcles.com.', '.hitcircles.com', '.localhost.', '.localhost', '.192.241.184.155.', '.192.241.184.155']
 # DEBUG = True
@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user_auth',
-    'HITCircles',
+    'hitcircles',
     'content',
     'guardian',
 )
@@ -58,7 +58,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'HITCircles.urls'
+ROOT_URLCONF = 'hitcircles.urls'
 
 TEMPLATES = [
     {
@@ -76,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'HITCircles.wsgi.application'
+WSGI_APPLICATION = 'hitcircles.wsgi.application'
 
 
 # Database
