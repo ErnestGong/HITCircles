@@ -89,7 +89,7 @@ DATABASES = {
         'PASSWORD': 'fiwu&*32dg',
         'Host': 'localhost',
         'OPTIONS': {
-          'autocommit': True,
+            'default-character-set':'utf8'
         },
     }
 }
