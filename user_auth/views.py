@@ -176,13 +176,17 @@ def censor_follow(request):
                         allow_usr.profile.follow_count += 1
                     else:
                         allow_usr.profile.follow_count = 1
+                    allow_usr.profile.save()
 
                     if request.user.profile.followed_count:
                         request.user.profile.followed_count += 1
                     else:
                         request.user.profile.followed_count = 1
-
+                    request.user.profile.save()
+                    
                     messages.success(request, '您已成功同意申请')
+
+
                     request.user.profile.censor_count -= 1
                     request.user.profile.save()
                     f_censor = FollowSensor.objects.get(whoto=int(allow_id), censor=request.user.id).delete()

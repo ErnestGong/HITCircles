@@ -25,9 +25,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@_v^-vyxhv1@&idf=7_dqq((mn58z_vrj7aaljb0s5!*6g25#f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+ALLOWED_HOSTS = ['.hitclrcles.com.', '.hitcircles.com', '.localhost.', '.localhost', '.106.186.18.98.', '.106.186.18.98']
+# DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -83,9 +84,9 @@ WSGI_APPLICATION = 'HITCircles.wsgi.application'
 DATABASES = {
     'default': {
         'NAME': 'hitcircles',
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'USER': 'hitc_django',
-        'PASSWORD': 'googheghhgfdjk',
+        'PASSWORD': 'fiwu&*32dg',
         'Host': 'localhost',
         'OPTIONS': {
           'autocommit': True,

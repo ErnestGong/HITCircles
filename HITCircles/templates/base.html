@@ -32,6 +32,7 @@
 				<li role="presentation"><a href="{% url 'index_not_login' %}">首页</a></li>
                 <li role="presentation"><a href="{% url 'search_to_follow' %}">添加关注</a></li>
                 <li role="presentation"><a href="{% url 'censor_follow' %}">审查关注列表</a></li>
+                <li role="presentation"><a href="{% url 'show_scrapy' %}">今日哈工大推送</a></li>
                 {% if user.username %}
 				<li role="presentation" class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">

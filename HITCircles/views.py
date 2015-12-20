@@ -12,9 +12,23 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.messages import get_messages
 from user_auth.forms import RegisterForm, AddContent, Circle
-
+from .models import Web
 from guardian.shortcuts import assign_perm
 from django.contrib.auth.models import Group
+
+def scrapy_show(request):
+    if request.user.is_authenticated() and request.user.is_active:
+        details = Web.objects.all()
+        detail = []
+
+        if len(details) < 10:
+            return render(request, 'scrapy_show.html',{"message":"No information"})
+        for i in range (0,10):
+            detail.append(details[i])
+        return render(request, 'scrapy_show.html',{"messages":detail})
+    else:
+        messages.error(request, '请先登录')
+        return HttpResponseRedirect(reverse('index_not_login'))
 
 def return_404(request):
     return render(request, 'user/404.html', {'user':request.user})

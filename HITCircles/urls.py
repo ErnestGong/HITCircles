@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index_not_login, name='index_not_login'),
     url(r'^message/$', views.site_message, name='site_message'),
+    url(r'^scrapy_show/$', views.scrapy_show, name='show_scrapy'),
     url(r'^content/', include('content.urls')),
     url(r'^',include('user_auth.urls'))
 ]
