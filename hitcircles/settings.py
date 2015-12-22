@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@_v^-vyxhv1@&idf=7_dqq((mn58z_vrj7aaljb0s5!*6g25#f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['.hitclrcles.com.', '.hitcircles.com', '.localhost.', '.localhost','.127.0.0.1','.127.0.0.1.', '.192.241.184.155.', '.192.241.184.155']
 # DEBUG = True
@@ -87,8 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hitcircles',
         'USER': 'hitc_django',
-        'PASSWORD': 'googheghhgfdjk',
-        # 'PASSWORD': 'jowei*$3gj',
+        'PASSWORD': 'jowei*$3gj',
         'HOST': 'localhost',
         'PORT': '',
     }
