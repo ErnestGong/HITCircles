@@ -1,95 +1,93 @@
-{%extends 'base.html'%}
+{%extends 'base1.html'%}
 {%block title%}
-个人主页
+查看与发布
 {%endblock%}
 {%block content%}
+<div class="pusher">
+        <div class="ui vertical masthead segment_sub" style="background-image: url('/static/background_1.jpg');">
+        <div class="ui container">
+          <div class="ui large secondary inverted pointing menu" style="border: none">
+            <a class="item" href="{% url 'index_not_login' %}">
+                  首页
+              </a>
+              {% if user.username %}
+                  <a class="item" href="{% url 'censor_follow' %}">
+                      审查关注列表
+                  </a>
+                  <a class="item" href="{% url 'show_scrapy' %}">
+                      今日哈工大推送
+                  </a>
+                  <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
+                      查看个人信息
+                  </a>
+                  <div class="item">
+                      <div class="ui action input">
+                      <form action="{% url 'search_to_follow' %}" method="post">
+                          {% csrf_token %}
+                        <input type="text" name="name" placeholder="输入关注用户昵称">
+                            <button class="ui icon button">
+                                <i class="search icon"></i>
+                            </button>
+                      </form>
+                      </div>
 
-<div class="jumbotron" style="background-color:rbga(0,0,0,0)">
-	<div class="container">
+                    </div>
+              {% endif %}
+              <div class="right menu">
+              {% if user.username %}
+
+                    <a class="ui item" href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a>
+                    <a class="ui item" href="/logout/">登出</a>
+                    {% if user.username == 'admin' %}
+			            <a class="ui item" href="{% url 'permission_request' %}">审核用户申请</a>
+                    {% endif %}
+                    <a class="ui item" href="/add_infomation/">信息完善</a>
+                {% endif %}
+
+              </div>
+          </div>
+        </div>
+        </br>
+        </br>
+        <div class="ui grid container">
+            <h1 class="header" style="color: #ffffff;">历史发布内容</h1>
+        </div>
+        </div>
+
+	<div class="ui grid container" >
 		<div class="row">
-			<div class="col-md-9">
-				<!--div class="row" style="border:2">
-					<div class="row">
-						<p>User Information:</p>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<p><small>用户名：<label style="color:#9F5F9F">{{ profile.user }}</label></small></p>
-						</div>
-						<div class="col-md-4">
-							<p><small>昵称：<label style="color:#9F5F9F">{{ profile.nickname }}</label></small></p>
-						</div>
-						<div class="col-md-4">
-							<p><small>电话：<label style="color:#9F5F9F">{{ profile.phone_number }}</label></small></p>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<p><small>年级：<label style="color:#9F5F9F">{{ profile.grade }}</label></small></p>
-						</div>
-						<div class="col-md-4">
-							<p><small>生日：<label style="color:#9F5F9F">{{ profile.birthday }}</label></small></p>
-						</div>
-						<div class="col-md-4" >
-							<p><small>性别：<label style="color:#9F5F9F">{{ profile.sex }}</label></small></p>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<p><small>学院：<label style="color:#9F5F9F">{{ profile.school }}</label></small></p>
-						</div>
-						<div class="col-md-6">
-							<p><small>学号：<label style="color:#9F5F9F">{{ profile.school_id }}</label></small></p>
-						</div>
-					</div-->
-					<h3>历史发布内容：</h3>
-					<hr style="float:left;width:95%" />
-					<div class="row" style="background-color:rgba(0,0,0,0);padding:1px">
-	                    {% for cont in content %}
-	                    	<div class="col-md-12">
-	                    		<div class="row">
-	                    			<div class="col-md-1">
-	                    				<p style="color:#A67D3D">
-											<label>Title: </label>
-										</p>
-	                    			</div>
-	                    			<div class="col-md-9">
-	                    				<p>{{ cont.title }}</p>
-	                    			</div>
-	                    		</div>
-	                    		<div class="row">
-	                    			<div class="col-md-12">
-	                    				<p>
-				                        	<label>Content: </label>             
-					                    </p>
-	                    			</div>
-	                    		</div>
-	                    		<div class="row">
-	                    			<div class="col-md-12">
-	                    				<p style="font-size:18px">
-				                        	{{ cont.text }}
-				                        </p>
-	                    			</div>
-	                    		</div>
-	                    	</div>
-	                    	<hr style="float:left;width:95%" />
-	                    {% endfor %}
-					</div>
-					
-				<!--/div-->
-			</div>
-			<div class="col-md-3" style="margin-top:3px">
-				<h2><label>用户信息</label></h2>
-				<div class="row">
-					<p><small>用户名：<label style="color:#9F5F9F">{{ profile.user }}</label></small></p>
-					<p><small>昵称：<label style="color:#9F5F9F">{{ profile.nickname }}</label></small></p>
-					<p><small>电话：<label style="color:#9F5F9F">{{ profile.phone_number }}</label></small></p>
-					<p><small>年级：<label style="color:#9F5F9F">{{ profile.grade }}</label></small></p>
-					<p><small>生日：<label style="color:#9F5F9F">{{ profile.birthday }}</label></small></p>
-					<p><small>性别：<label style="color:#9F5F9F">{{ profile.sex }}</label></small></p>
-					<p><small>学院：<label style="color:#9F5F9F">{{ profile.school }}</label></small></p>
-					<p><small>学号：<label style="color:#9F5F9F">{{ profile.school_id }}</label></small></p>
+			<div class="ten wide column">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="ui {{ message.tags }} message">
+                              <i class="close icon"></i>
+                              <div class="header">
+                                <strong>{{ message.tags }}</strong>
+                              </div>
+                              <p>{{ message.message }}</p>
+                            </div>
+                        {% endfor %}
+                    <br />
+                    {% endif %}
+                <br />
+            <div class="ui raised segment">
+				<div class="ui divided items">
+                    {% for cont in content %}
+                    <div class="item">
+                    <div class="content">
+                        <a class="header">{{ cont.title }}</a>
+                        <div class="description" style="max-height:150px;overflow: auto;word-break: break-all;word-wrap: break-word">
+                            <p>{{ cont.text }}</p>
+                        </div>
+                    </div>
+                    </div>
+
+                    {% endfor %}
+                    {% if not content %}
+                        <h1>没有历史信息</h1>
+                    {% endif %}
 				</div>
+            </div>
 			</div>
 		</div>
 	</div>

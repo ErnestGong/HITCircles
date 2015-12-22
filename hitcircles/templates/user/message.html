@@ -26,7 +26,7 @@
                       <div class="ui action input">
                       <form action="{% url 'search_to_follow' %}" method="post">
                           {% csrf_token %}
-                        <input type="text" name="name" placeholder="输入关注用户名">
+                        <input type="text" name="name" placeholder="输入关注用户昵称">
                             <button class="ui icon button">
                                 <i class="search icon"></i>
                             </button>
@@ -54,42 +54,13 @@
                     <div class="twelve wide column">
                     {% if messages %}
                         {% for message in messages %}
-                            {% if message.tags == 'success' %}
-                                <div class="alert alert-success alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>成功:</strong>
-                                    {{ message.message }}
-                                </div>
-                            {% endif %}
-                            {% if message.tags == 'warning' %}
-                                <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>警告:</strong>
-                                    {{ message.message }}
-                                </div>
-                            {% endif %}
-                            {% if message.tags == 'error' %}
-                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>失败:</strong>
-                                    {{ message.message }}
-                                </div>
-                            {% endif %}
-                            {% if message.tags == 'info' %}
-                                <div class="alert alert-info alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>提示:</strong>
-                                    {{ message.message }}
-                                </div>
-                            {% endif %}
+                            <div class="ui {{ message.tags }} message">
+                              <i class="close icon"></i>
+                              <div class="header">
+                                <strong>{{ message.tags }}</strong>
+                              </div>
+                              <p>{{ message.message }}</p>
+                            </div>
                         {% endfor %}
                     <br />
                     {% endif %}
@@ -151,18 +122,26 @@
                     <div class="ui labeled tiny button" tabindex="0">
                       <div class="ui button">
 
-                        关注:
+                        被关注:
                       </div>
                       <a class="ui basic label" href="{% url 'view_followed' user.id %}">
+                        {% if user.profile.followed_count == None %}
+                          0
+                          {% else %}
                         {{ user.profile.followed_count }}
+                          {% endif %}
                       </a>
                     </div>
                     <div class="ui labeled tiny button" tabindex="0">
                       <div class="ui button">
-                        被关注:
+                        关注:
                       </div>
                       <a class="ui basic label" href="{% url 'view_follower' user.id %}">
+                      {% if user.profile.follow_count == None %}
+                          0
+                          {% else %}
                         {{ user.profile.follow_count }}
+                          {% endif %}
                       </a>
                     </div>
 
@@ -230,7 +209,11 @@
                                                         <i class="heart icon"></i> 点赞:
                                                       </button>
                                                       <a class="ui basic red left pointing label">
+                                                          {% if each_cont.1.thumb_up == None %}
+                                                              0
+                                                          {% else %}
                                                         {{ each_cont.1.thumb_up }}
+                                                          {% endif %}
                                                       </a>
                                                     </div>
 

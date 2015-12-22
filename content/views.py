@@ -95,28 +95,28 @@ def view_content_profile(request, profile_id):
         messages.error(request, '请先登录')
         return HttpResponseRedirect(reverse('index_not_login'))
 
-def view_content_circle(request, circle_id):
-    # 不考虑用post的情况下,引入权限设置
-    if request.user.is_authenticated() and request.user.is_active:
-        if circle_id:
-            try:
-                c = Circle.objects.get(id=circle_id)
-            except:
-                messages.error(request, '请不要发出非法请求')
-                return HttpResponseRedirect(reverse('site_message'))
-            else:
-                # permission query没有存放,本来为view_vircle
-                if request.user.has_perm('add_circle', c):
-                    content = c.content_set.all()
-                    return render(request, 'content/circle.html', {'content':content, 'circle': c, 'user':request.user, 'messages':get_messages(request)})
-                else:
-                    messages.error(request, '您没有权限查看这个circle的资料')
-                    return HttpResponseRedirect(reverse('site_message'))
-        else:
-            return HttpResponseRedirect(reverse('site_message'))
-    else:
-        messages.error(request, '请先登录')
-        return HttpResponseRedirect(reverse('index_not_login'))
+# def view_content_circle(request, circle_id):
+#     # 不考虑用post的情况下,引入权限设置
+#     if request.user.is_authenticated() and request.user.is_active:
+#         if circle_id:
+#             try:
+#                 c = Circle.objects.get(id=circle_id)
+#             except:
+#                 messages.error(request, '请不要发出非法请求')
+#                 return HttpResponseRedirect(reverse('site_message'))
+#             else:
+#                 # permission query没有存放,本来为view_vircle
+#                 if request.user.has_perm('add_circle', c):
+#                     content = c.content_set.all()
+#                     return render(request, 'content/circle.html', {'content':content, 'circle': c, 'user':request.user, 'messages':get_messages(request)})
+#                 else:
+#                     messages.error(request, '您没有权限查看这个circle的资料')
+#                     return HttpResponseRedirect(reverse('site_message'))
+#         else:
+#             return HttpResponseRedirect(reverse('site_message'))
+#     else:
+#         messages.error(request, '请先登录')
+#         return HttpResponseRedirect(reverse('index_not_login'))
 
 def process_thumb_up(request):
     if request.user.is_authenticated() and request.user.is_active:

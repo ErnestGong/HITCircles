@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from user_auth.models import Profile
 from content.models import Follow
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.core.urlresolvers import reverse
 import datetime
 from django.http import HttpResponseRedirect
@@ -12,23 +12,29 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.messages import get_messages
 from user_auth.forms import LoginForm, RegisterForm, AddContent, Circle
-from .models import Web
+from .models import Web, Web1
 from guardian.shortcuts import assign_perm
 from django.contrib.auth.models import Group
 
-def scrapy_show(request):
-    if request.user.is_authenticated() and request.user.is_active:
-        details = Web.objects.all()
-        detail = []
 
-        if len(details) < 10:
-            return render(request, 'scrapy_show.html',{"message":"No information"})
-        for i in range (0,10):
-            detail.append(details[i])
-        return render(request, 'scrapy_show.html',{"messages":detail})
-    else:
-        messages.error(request, '请先登录')
-        return HttpResponseRedirect(reverse('index_not_login'))
+def scrapy_show(req):
+    details1 = Web.objects.all()
+    details2 = Web1.objects.all()
+    detail1 = []
+    detail2 = []
+    len1 = len(details1)
+    len2 = len(details2)
+    if len1 <= 0 or len2 <= 0:
+        return render_to_response("scrapy_show.html",{"message":"No information"})
+    for i in range (0,len1):
+        detail1.append(details1[i])
+    for i in range(0,len2):
+        detail2.append(details2[i])
+
+    detail1.sort(reverse = True,cmp=lambda x,y:cmp(x.link,y.link))
+    detail2.sort(reverse = True,cmp=lambda x,y:cmp(x.link1,y.link1))
+
+    return render_to_response("scrapy_show.html",{"messages1":detail1,"messages2":detail2})
 
 def return_404(request):
     return render(request, 'user/404.html', {'user':request.user})

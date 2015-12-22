@@ -1,62 +1,105 @@
-{%extends 'base.html'%}
+{%extends 'base1.html'%}
 {%block title%}
-关注列表
+查看与发布
 {%endblock%}
 {%block content%}
+<div class="pusher">
+        <div class="ui vertical masthead segment_sub" style="background-image: url('/static/background_1.jpg');">
+        <div class="ui container">
+          <div class="ui large secondary inverted pointing menu" style="border: none">
+            <a class="item" href="{% url 'index_not_login' %}">
+                  首页
+              </a>
+              {% if user.username %}
+                  <a class="item" href="{% url 'censor_follow' %}">
+                      审查关注列表
+                  </a>
+                  <a class="item" href="{% url 'show_scrapy' %}">
+                      今日哈工大推送
+                  </a>
+                  <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
+                      查看个人信息
+                  </a>
+                  <div class="item">
+                      <div class="ui action input">
+                      <form action="{% url 'search_to_follow' %}" method="post">
+                          {% csrf_token %}
+                        <input type="text" name="name" placeholder="输入关注用户昵称">
+                            <button class="ui icon button">
+                                <i class="search icon"></i>
+                            </button>
+                      </form>
+                      </div>
 
-<div class="jumbotron">
-	<div class="container">
+                    </div>
+              {% endif %}
+              <div class="right menu">
+              {% if user.username %}
+
+                    <a class="ui item" href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a>
+                    <a class="ui item" href="/logout/">登出</a>
+                    {% if user.username == 'admin' %}
+			            <a class="ui item" href="{% url 'permission_request' %}">审核用户申请</a>
+                    {% endif %}
+                    <a class="ui item" href="/add_infomation/">信息完善</a>
+                {% endif %}
+
+              </div>
+          </div>
+        </div>
+        </br>
+        </br>
+        <div class="ui grid container">
+            <h1 class="header" style="color: #ffffff;">查看我关注的人</h1>
+        </div>
+        </div>
+
+	<div class="ui grid container" >
 		<div class="row">
-			<div class="col-md-9">
-				<div class="row">
-					<div class="col-md-2">
-						<p style="color:#A67D3D">关注列表</p>
-					</div>
-				</div>
-				<hr />
-				<div class="row" style="background-color:rgba(0,0,0,0);padding:1px">
-                    {% for fo in follow %}
-                    	<div class="col-md-12">
-                    		<div class="row">
-                    			<div class="col-md-1">
-                    				<p style="color:#A67D3D">
-										<label>关注人: </label>
-									</p>
-                    			</div>
-                    			<div class="col-md-9">
-                    				<p><a href="{% url 'view_content_profile' fo.profile.id %}">{{ fo.profile.nickname }}</a></p>
-                    			</div>
-                    		</div>
-                    		<div class="row">
-
-
-                    			<div class="col-md-12">
-                                    <form action="{% url 'delete_follow' %}" method="post">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="user_id" value={{ fo.id }}>
-                                        <input class="btn btn-primary" style="height:30px;width:100%" type="submit" name="submit" value="取消关注">
-                                    </form>
-                    			</div>
+			<div class="sixteen wide column">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="ui {{ message.tags }} message">
+                              <i class="close icon"></i>
+                              <div class="header">
+                                <strong>{{ message.tags }}</strong>
+                              </div>
+                              <p>{{ message.message }}</p>
                             </div>
+                        {% endfor %}
+                    <br />
+                    {% endif %}
+                <br />
 
-                    	</div>
-                    	<hr style="width:100%"/>
+				<div class="ui cards">
+                    {% for fo in follow %}
+                    {% if fo.id != user.id %}
+                    <div class="card">
+                    <div class="content">
+                        <a class="header">{{ fo.username }}</a>
+                        <div class="description" style="max-height:150px;overflow: auto;word-break: break-all;word-wrap: break-word">
+                            <p>昵称: {{ fo.profile.nickname }} </p>
+                            <p>学号: {{ fo.profile.school_id }}</p>
+                        </div>
+                        <div class="extra">
+                            <br />
+                            <a href="{% url 'view_content_profile' fo.profile.id %}"><button class="ui tiny left floated primary button" type="submit" name="submit">查看详情</button></a>
+                            <form action="{% url 'delete_follow' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="user_id" value={{ fo.id }}>
+                                <button class="ui tiny right floated primary button" type="submit" name="submit">取消关注</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    </div>
+                    {% endif %}
                     {% endfor %}
+                    {% if not follow %}
+                        <h1>没有我关注的人,赶紧搜索关注吧</h1>
+                    {% endif %}
 				</div>
-			</div>
 
-			<div class="col-md-3" style="margin-top:3px">
-				<h2><label>用户信息</label></h2>
-				<div class="row">
-					<p><small>用户名：<label style="color:#9F5F9F">{{ user.username }}</label></small></p>
-					<p><small>昵称：<label style="color:#9F5F9F">{{ user.profile.nickname }}</label></small></p>
-					<p><small>电话：<label style="color:#9F5F9F">{{ user.profile.phone_number }}</label></small></p>
-					<p><small>年级：<label style="color:#9F5F9F">{{ user.profile.grade }}</label></small></p>
-					<p><small>生日：<label style="color:#9F5F9F">{{ user.profile.birthday }}</label></small></p>
-					<p><small>性别：<label style="color:#9F5F9F">{{ user.profile.sex }}</label></small></p>
-					<p><small>学院：<label style="color:#9F5F9F">{{ user.profile.school }}</label></small></p>
-					<p><small>学号：<label style="color:#9F5F9F">{{ user.profile.school_id }}</label></small></p>
-				</div>
 			</div>
 		</div>
 	</div>

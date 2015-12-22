@@ -1,103 +1,101 @@
-{%extends 'base.html'%}
+{%extends 'base1.html'%}
 {%block title%}
 查看与发布
 {%endblock%}
 {%block content%}
-<div class="jumbotron">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-9">
-                {% if messages %}
-                {% for message in messages %}
-                    {% if message.tags == 'success' %}
-                        <div class="alert alert-success alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>成功:</strong>
-                            {{ message.message }}
-                        </div>
-                    {% endif %}
-                    {% if message.tags == 'warning' %}
-                        <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>警告:</strong>
-                            {{ message.message }}
-                        </div>
-                    {% endif %}
-                    {% if message.tags == 'error' %}
-                        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>失败:</strong>
-                            {{ message.message }}
-                        </div>
-                    {% endif %}
-                    {% if message.tags == 'info' %}
-                        <div class="alert alert-info alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>提示:</strong>
-                            {{ message.message }}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            <br />
-            {% endif %}
-                <br />
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1 style="color:#A67D3D">审核用户请求</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr />
+<div class="pusher">
+        <div class="ui vertical masthead segment_sub" style="background-image: url('/static/background_1.jpg');">
+        <div class="ui container">
+          <div class="ui large secondary inverted pointing menu" style="border: none">
+            <a class="item" href="{% url 'index_not_login' %}">
+                  首页
+              </a>
+              {% if user.username %}
+                  <a class="item" href="{% url 'censor_follow' %}">
+                      审查关注列表
+                  </a>
+                  <a class="item" href="{% url 'show_scrapy' %}">
+                      今日哈工大推送
+                  </a>
+                  <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
+                      查看个人信息
+                  </a>
+                  <div class="item">
+                      <div class="ui action input">
+                      <form action="{% url 'search_to_follow' %}" method="post">
+                          {% csrf_token %}
+                        <input type="text" name="name" placeholder="输入关注用户昵称">
+                            <button class="ui icon button">
+                                <i class="search icon"></i>
+                            </button>
+                      </form>
+                      </div>
 
-				<div class="row" style="background-color:rgba(0,0,0,0);padding:1px">
+                    </div>
+              {% endif %}
+              <div class="right menu">
+              {% if user.username %}
+
+                    <a class="ui item" href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a>
+                    <a class="ui item" href="/logout/">登出</a>
+                    {% if user.username == 'admin' %}
+			            <a class="ui item" href="{% url 'permission_request' %}">审核用户申请</a>
+                    {% endif %}
+                    <a class="ui item" href="/add_infomation/">信息完善</a>
+                {% endif %}
+
+              </div>
+          </div>
+        </div>
+        </br>
+        </br>
+        <div class="ui grid container">
+            <h1 class="header" style="color: #ffffff;">审核用户申请</h1>
+        </div>
+        </div>
+
+	<div class="ui grid container" >
+		<div class="row">
+			<div class="ten wide column">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="ui {{ message.tags }} message">
+                              <i class="close icon"></i>
+                              <div class="header">
+                                <strong>{{ message.tags }}</strong>
+                              </div>
+                              <p>{{ message.message }}</p>
+                            </div>
+                        {% endfor %}
+                    <br />
+                    {% endif %}
+                <br />
+            <div class="ui raised segment">
+				<div class="ui divided items">
                     {% for req in request %}
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p><label>circle名：</label></p>
-                            </div>
-                            <div class="col-md-10">
-                                <p>{{ req.circle_name }}</p>
-                            </div>
+                    <div class="item">
+                    <div class="content">
+                        <a class="header">{{ req.username }}</a>
+                        <div class="description" style="max-height:150px;overflow: auto;word-break: break-all;word-wrap: break-word">
+                          <p>用户申请加入 {{ req.circle_name }} 圈子</p>
                         </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p><label>用户名:</label></p>
-                            </div>
-                            <div class="col-md-8">
-                                <p>{{ req.username }}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <form action="{% url 'permission_request' %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="username" value={{ req.username }}>
-                                    <input type="hidden" name="circle_name" value={{ req.circle_name }}>
-                                    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="允许">
-                                </form>
-                            </div>
+                        <div class="extra">
+                            <form action="{% url 'permission_request' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="username" value={{ req.username }}>
+                                <input type="hidden" name="circle_name" value={{ req.circle_name }}>
+                                <button class="ui right floated primary button" type="submit" name="submit">允许<i class="right chevron icon"></i></button>
+                            </form>
                         </div>
                     </div>
-                    <hr style="float:left;width:100%;foreground-color:red" />
+                    </div>
+
                     {% endfor %}
                     {% if not request %}
-                        <div class="row">
-                            <div class="col-md-3 col-md-offset-3">
-                                <p>没有用户请求信息</p>
-                            </div>
-                        </div>
+                        <h1>没有用户请求信息</h1>
                     {% endif %}
 				</div>
+            </div>
 			</div>
 		</div>
 	</div>

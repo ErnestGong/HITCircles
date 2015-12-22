@@ -6,25 +6,26 @@
 * Xiao Kaiti
 
 ## Current Status：
-* Close to release first stable edition
+* Close to release last edition
 
-* Release 1.0
-    * Complete basic front-end design
+* Release 3.0
+    COMPLETELY REDISIGIN ALL PAGES!
+
+    * Complete front-end design
         * Index Page
         * Register Page
         * User Page
-    * Complete basic back-end design
+        * and a few more pages
+    * Complete back-end design
         * Register
         * Log in (stay sign in after closing browser)
         * Log out
         * Store other User infomation
         * Display Current User's infomation
-    * Ready to ship the ability of using circles for authorization
-    * Ready to ship the ability of posting infomation
-    * Ready to ship the ability of viewing, categorized by circle
+        * etc
 
 ## Plan:
-* Next Release: Nov 6, 2015
+* Final Release: Dec 25, 2015
 
 ## Development Docs:
 

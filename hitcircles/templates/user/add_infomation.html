@@ -25,7 +25,7 @@
                       <div class="ui action input">
                       <form action="{% url 'search_to_follow' %}" method="post">
                           {% csrf_token %}
-                        <input type="text" name="name" placeholder="输入关注用户名">
+                        <input type="text" name="name" placeholder="输入关注用户昵称">
                             <button class="ui icon button">
                                 <i class="search icon"></i>
                             </button>
@@ -56,6 +56,18 @@
         </div>
 <div class="ui grid container">
 <div class="ten wide column">
+    {% if messages %}
+    {% for message in messages %}
+        <div class="ui {{ message.tags }} message">
+          <i class="close icon"></i>
+          <div class="header">
+            <strong>{{ message.tags }}</strong>
+          </div>
+          <p>{{ message.message }}</p>
+        </div>
+    {% endfor %}
+<br />
+{% endif %}
 <form class="ui form" action="{% url 'add_infomation' %}" method="post">
     {% csrf_token %}
     <br />

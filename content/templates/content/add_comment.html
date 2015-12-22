@@ -1,79 +1,95 @@
-{%extends 'base.html'%}
+{%extends 'base1.html'%}
 {%block title%}
-发布评论
+查看与发布
 {%endblock%}
 {%block content%}
-<div class="jumbotron">
-	<div class="container">
+<div class="pusher">
+        <div class="ui vertical masthead segment_sub" style="background-image: url('/static/background_1.jpg');">
+        <div class="ui container">
+          <div class="ui large secondary inverted pointing menu" style="border: none">
+            <a class="item" href="{% url 'index_not_login' %}">
+                  首页
+              </a>
+              {% if user.username %}
+                  <a class="item" href="{% url 'censor_follow' %}">
+                      审查关注列表
+                  </a>
+                  <a class="item" href="{% url 'show_scrapy' %}">
+                      今日哈工大推送
+                  </a>
+                  <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
+                      查看个人信息
+                  </a>
+                  <div class="item">
+                      <div class="ui action input">
+                      <form action="{% url 'search_to_follow' %}" method="post">
+                          {% csrf_token %}
+                        <input type="text" name="name" placeholder="输入关注用户昵称">
+                            <button class="ui icon button">
+                                <i class="search icon"></i>
+                            </button>
+                      </form>
+                      </div>
+
+                    </div>
+              {% endif %}
+              <div class="right menu">
+              {% if user.username %}
+
+                    <a class="ui item" href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a>
+                    <a class="ui item" href="/logout/">登出</a>
+                    {% if user.username == 'admin' %}
+			            <a class="ui item" href="{% url 'permission_request' %}">审核用户申请</a>
+                    {% endif %}
+                    <a class="ui item" href="/add_infomation/">信息完善</a>
+                {% endif %}
+
+              </div>
+          </div>
+        </div>
+        </br>
+        </br>
+        <div class="ui grid container">
+            <h1 class="header" style="color: #ffffff;">添加评论</h1>
+        </div>
+        </div>
+
+	<div class="ui grid container" >
 		<div class="row">
-			<div class="col-md-8">
-                <div class="row">
+			<div class="ten wide column">
                     {% if messages %}
                         {% for message in messages %}
-                            {% if message.tags == 'success' %}
-                                <div class="alert alert-success alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>成功:</strong>
-                                    {{ message.message }}
-                                </div>
-                            {% endif %}
-                            {% if message.tags == 'warning' %}
-                                <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>警告:</strong>
-                                    {{ message.message }}
-                                </div>
-                            {% endif %}
-                            {% if message.tags == 'error' %}
-                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>失败:</strong>
-                                    {{ message.message }}
-                                </div>
-                            {% endif %}
-                            {% if message.tags == 'info' %}
-                                <div class="alert alert-info alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>提示:</strong>
-                                    {{ message.message }}
-                                </div>
-                            {% endif %}
+                            <div class="ui {{ message.tags }} message">
+                              <i class="close icon"></i>
+                              <div class="header">
+                                <strong>{{ message.tags }}</strong>
+                              </div>
+                              <p>{{ message.message }}</p>
+                            </div>
                         {% endfor %}
                     <br />
                     {% endif %}
-                </div>
-                <div class="row" style="color:#99CC32"><h3>评论:</h3></div>
-                <form class='form-horizontal' action = "{% url 'add_comment' %}" method = "post">
+                <br />
+                <form class='ui form' action = "{% url 'add_comment' %}" method = "post">
 
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <div class="row">
-                                <textarea class="form-control" cols="40" id="id_content" maxlength="1000" name="comment" placeholder="请输入评论" rows="10" style="width:90%;height:100px;resize:none;"></textarea>
-                            <div>
+                    {% csrf_token %}
+                    <div class="field">
+                        <label>评论区</label>
+                        <textarea cols="40" id="id_content" maxlength="1000" name="comment" placeholder="请输入评论" rows="10" style="width:90%;height:100px;resize:none;"></textarea>
+                    </div>
+
+
+                    <div class="field">
+                        <div class="four wide column">
+                            <input type="hidden" name="cont_id" value={{ cont_id }} > </input>
+                            <input type="hidden" name="user_id" value={{ user.id }} > </input>
+                            <button class="ui blue inverted button"  type="submit" name="submit" >发布评论</button>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-2">
-                                 <input type="hidden" name="cont_id" value={{ cont_id }} > </input>
-                                 <input type="hidden" name="user_id" value={{ user.id }} > </input>
-                                 <input class="btn btn-primary" style="height:30px;width:100%" type="submit" name="submit" value="发布评论">
-                            </div>
-                        </div>
+                    </div>
                 </form>
-
 			</div>
-
-
 		</div>
 	</div>
 </div>
-</div>
-    {%endblock%}
+{%endblock%}

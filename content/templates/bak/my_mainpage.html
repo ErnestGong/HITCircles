@@ -1,0 +1,97 @@
+{%extends 'base.html'%}
+{%block title%}
+个人主页
+{%endblock%}
+{%block content%}
+
+<div class="jumbotron" style="background-color:rbga(0,0,0,0)">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<!--div class="row" style="border:2">
+					<div class="row">
+						<p>User Information:</p>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<p><small>用户名：<label style="color:#9F5F9F">{{ profile.user }}</label></small></p>
+						</div>
+						<div class="col-md-4">
+							<p><small>昵称：<label style="color:#9F5F9F">{{ profile.nickname }}</label></small></p>
+						</div>
+						<div class="col-md-4">
+							<p><small>电话：<label style="color:#9F5F9F">{{ profile.phone_number }}</label></small></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<p><small>年级：<label style="color:#9F5F9F">{{ profile.grade }}</label></small></p>
+						</div>
+						<div class="col-md-4">
+							<p><small>生日：<label style="color:#9F5F9F">{{ profile.birthday }}</label></small></p>
+						</div>
+						<div class="col-md-4" >
+							<p><small>性别：<label style="color:#9F5F9F">{{ profile.sex }}</label></small></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<p><small>学院：<label style="color:#9F5F9F">{{ profile.school }}</label></small></p>
+						</div>
+						<div class="col-md-6">
+							<p><small>学号：<label style="color:#9F5F9F">{{ profile.school_id }}</label></small></p>
+						</div>
+					</div-->
+					<h3>历史发布内容：</h3>
+					<hr style="float:left;width:95%" />
+					<div class="row" style="background-color:rgba(0,0,0,0);padding:1px">
+	                    {% for cont in content %}
+	                    	<div class="col-md-12">
+	                    		<div class="row">
+	                    			<div class="col-md-1">
+	                    				<p style="color:#A67D3D">
+											<label>Title: </label>
+										</p>
+	                    			</div>
+	                    			<div class="col-md-9">
+	                    				<p>{{ cont.title }}</p>
+	                    			</div>
+	                    		</div>
+	                    		<div class="row">
+	                    			<div class="col-md-12">
+	                    				<p>
+				                        	<label>Content: </label>             
+					                    </p>
+	                    			</div>
+	                    		</div>
+	                    		<div class="row">
+	                    			<div class="col-md-12">
+	                    				<p style="font-size:18px">
+				                        	{{ cont.text }}
+				                        </p>
+	                    			</div>
+	                    		</div>
+	                    	</div>
+	                    	<hr style="float:left;width:95%" />
+	                    {% endfor %}
+					</div>
+					
+				<!--/div-->
+			</div>
+			<div class="col-md-3" style="margin-top:3px">
+				<h2><label>用户信息</label></h2>
+				<div class="row">
+					<p><small>用户名：<label style="color:#9F5F9F">{{ profile.user }}</label></small></p>
+					<p><small>昵称：<label style="color:#9F5F9F">{{ profile.nickname }}</label></small></p>
+					<p><small>电话：<label style="color:#9F5F9F">{{ profile.phone_number }}</label></small></p>
+					<p><small>年级：<label style="color:#9F5F9F">{{ profile.grade }}</label></small></p>
+					<p><small>生日：<label style="color:#9F5F9F">{{ profile.birthday }}</label></small></p>
+					<p><small>性别：<label style="color:#9F5F9F">{{ profile.sex }}</label></small></p>
+					<p><small>学院：<label style="color:#9F5F9F">{{ profile.school }}</label></small></p>
+					<p><small>学号：<label style="color:#9F5F9F">{{ profile.school_id }}</label></small></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}

@@ -56,10 +56,14 @@ def site_register(request):
 
                     assign_perm('add_circle', u, c_tmp)
                     u_profile.save()
-                    u = authenticate(username=cd['username'], password=cd['password'])
+                    u_auth = authenticate(username=cd['username'], password=cd['password'])
                     # User.objects.create_user(username=cd['username'], password=cd['password'])
-                    login(request, u)
+                    login(request, u_auth)
                     messages.success(request, '注册成功,您已登录')
+                    f = Follow()
+                    f.follower = u.id
+                    f.followed = u.id
+                    f.save()
         else:
             messages.error(request, '请正确填写表单')
 
@@ -95,10 +99,10 @@ def permission_request(request):
 def search_to_follow(request):
     if request.user.is_authenticated() and request.user.is_active:
         if request.method == 'POST':
-            usr_lst = User.objects.filter(username=request.POST.get('name', -1))
-            return render(request, 'user/search_to_follow.html', {'usr_lst':usr_lst, 'messages':get_messages(request), 'user':request.user})
+            profile_lst = Profile.objects.filter(nickname__contains =request.POST.get('name', -1))
+            return render(request, 'user/search_to_follow.html', {'profile_lst':profile_lst, 'messages':get_messages(request), 'user':request.user})
         else:
-            return render(request, 'user/search_to_follow.html', {'messages':get_messages(request), 'user':request.user})
+            return HttpResponseRedirect(reverse('site_message'))
     else:
         messages.error(request, '请先登录')
         return HttpResponseRedirect(reverse('index_not_login'))
