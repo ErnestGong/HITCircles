@@ -17,6 +17,14 @@
       min-height: 700px;
       padding: 1em 0em;
     }
+    .masthead.segment2 {
+      min-height: 500px;
+      padding: 1em 0em;
+    }
+    .masthead.segment_sub {
+      min-height: 150px;
+      padding: 1em 0em;
+    }
     .masthead .logo.item img {
       margin-right: 1em;
     }
@@ -120,24 +128,24 @@
       $('.ui.sidebar')
         .sidebar('attach events', '.toc.item')
       ;
+      $('.menu .item')
+        .tab()
+      ;
     })
   ;
   </script>
 </head>
-<body {% block body_style %}{% endblock %}>
+<body style="background-color:#f2f2f2 " {% block body_style %}{% endblock %}>
     {% block bg_image %}{% endblock %}
 
 
-    <div class="ui large top fixed hiddden menu">
+    <div class="ui large top fixed hiddden menu" style="display: none">
         <div-- class="ui container">
             <!--div class="ui large inverted secondary network menus"-->
               <a class="item" href="{% url 'index_not_login' %}">
                   首页
               </a>
               {% if user.username %}
-                  <a class="item" href="{% url 'search_to_follow' %}">
-                      添加关注
-                  </a>
                   <a class="item" href="{% url 'censor_follow' %}">
                       审查关注列表
                   </a>
@@ -147,15 +155,21 @@
                   <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
                       查看个人信息
                   </a>
+                  <div class="item">
+                      <div class="ui action input">
+                      <form action="{% url 'search_to_follow' %}" method="post">
+                          {% csrf_token %}
+                        <input type="text" name="name" placeholder="输入关注用户名">
+                            <button class="ui icon button">
+                                <i class="search icon"></i>
+                            </button>
+                      </form>
+                      </div>
+                    </div>
               {% endif %}
               <div class="right menu">
               {% if user.username %}
-                    <div class="item">
-                      <div class="ui icon input">
-                        <input type="text" placeholder="Search...">
-                        <i class="search link icon"></i>
-                      </div>
-                    </div>
+
                     <a class="ui item" href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a>
                     <a class="ui item" href="/logout/">登出</a>
                     {% if user.username == 'admin' %}
@@ -171,6 +185,7 @@
 
 
 {% block content%}{% endblock %}
+
 <div style="text-align:center">
 	<p class="lead">copyright @ hit-2013-cs-class3</p>
 </div>
@@ -182,10 +197,7 @@
 <script src="http://s4.cnzz.com/z_stat.php?id=1257013290&web_id=1257013290" language="JavaScript"></script>
 
 </div>
-<!--
-<script src="/static/js/jquery-1.11.3.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
--->
+
 </body>
 
 </html>

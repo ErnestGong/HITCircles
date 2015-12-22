@@ -16,20 +16,25 @@ circle_user_choice=[]
 circle_select_choice=[]
 
 
+class LoginForm(forms.Form):
+    username = forms.CharField(label='用户名:', max_length = 16, widget=forms.TextInput(attrs={'class':"form-control", 'placeholder':'用户名(少于16个字符)'}))
+    password = forms.CharField(label='密码:', max_length = 16, widget=forms.PasswordInput(attrs={'class':"form-control", 'placeholder':'密码(少于16个字符)'}))
+
 class RegisterForm(forms.Form):
-    username = forms.CharField(label='用户名:', max_length = 16, widget=forms.TextInput(attrs={'class':"form-control", 'placeholder':'请输入姓名,不超过16个字符(必填)'}))
-    password = forms.CharField(label='密码:', max_length = 16, widget=forms.PasswordInput(attrs={'class':"form-control", 'placeholder':'请输入密码,不超过16个字符(必填)'}))
+    username = forms.CharField(label='用户名:', max_length = 16, widget=forms.TextInput(attrs={'class':"form-control", 'placeholder':'用户名(少于16个字符)'}))
+    password = forms.CharField(label='密码:', max_length = 16, widget=forms.PasswordInput(attrs={'class':"form-control", 'placeholder':'密码(少于16个字符)'}))
+    password_reconfirm = forms.CharField(label='再次确认密码:', max_length = 16, widget=forms.PasswordInput(attrs={'class':"form-control", 'placeholder':'请确认密码'}))
 
 
 class PersonalInfomations(forms.Form):
     email = forms.EmailField(label='邮箱:',widget=forms.EmailInput(attrs={'placeholder':'example@example.com(必填)'}))
-    sex = forms.ChoiceField(label='性别:', choices=SEX_CHOICES)
-    birthday = forms.DateField(label='生日:', required=False, widget=SelectDateWidget(years=years))
+    sex = forms.ChoiceField(label='性别:', widget=forms.Select(attrs={'class':'ui fluid dropdown'}) ,choices=SEX_CHOICES)
+    birthday = forms.DateField(label='生日:', required=False, widget=SelectDateWidget(years=years, attrs={'class':'field ui fluid dropdown'}))
     name = forms.CharField(label='真实姓名:', max_length=6, widget=forms.TextInput(attrs={'placeholder':'长度不超过6(必填)'}))
     phone_number = forms.IntegerField(label='手机号:',required=False, max_value=20000000000, widget=forms.TextInput(attrs={'placeholder':'138xxxxxxxx'}))
     nickname = forms.CharField(label='昵称:', max_length=16, widget=forms.TextInput(attrs={'placeholder':'昵称(必填)'}))
-    school = forms.ChoiceField(label='学院:', choices=SCHOOL_CHOICES)
-    grade = forms.ChoiceField(label='年级:', choices=GRADE_CHOICES)
+    school = forms.ChoiceField(label='学院:', widget=forms.Select(attrs={'class':'ui fluid dropdown'}), choices=SCHOOL_CHOICES)
+    grade = forms.ChoiceField(label='年级:', widget=forms.Select(attrs={'class':'ui fluid dropdown'}), choices=GRADE_CHOICES)
     school_id = forms.IntegerField(label='学号:', max_value=9999999999, widget=forms.TextInput(attrs={'placeholder':'输入10位学号(必填)'}))
     circles = forms.MultipleChoiceField(label='Circle:', widget=forms.CheckboxSelectMultiple, choices=circle_select_choice)
     follow_auth = forms.ChoiceField(label='他人关注权限:', choices=FOLLOW_AUTH_CHOICES, widget=forms.RadioSelect)

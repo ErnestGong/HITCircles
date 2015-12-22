@@ -42,21 +42,24 @@ def site_register(request):
             if User.objects.filter(username=cd['username']):
                 messages.error(request, '账号已被注册')
             else:
-                u = User.objects.create_user(username=cd['username'],password=cd['password'])
-                permission = Permission.objects.get(codename='open_relationship')
-                u.user_permissions.add(permission)
-                u.save()
-                u_profile = Profile(user = u)
-                c_tmp = Circle.objects.get(name='public')
-                u_profile.save()
-                u_profile.circle_set.add(c_tmp)
+                if cd['password'] != cd['password_reconfirm']:
+                    messages.error(request, '两次输入密码不符')
+                else:
+                    u = User.objects.create_user(username=cd['username'],password=cd['password'])
+                    permission = Permission.objects.get(codename='open_relationship')
+                    u.user_permissions.add(permission)
+                    u.save()
+                    u_profile = Profile(user = u)
+                    c_tmp = Circle.objects.get(name='public')
+                    u_profile.save()
+                    u_profile.circle_set.add(c_tmp)
 
-                assign_perm('add_circle', u, c_tmp)
-                u_profile.save()
-                u = authenticate(username=cd['username'], password=cd['password'])
-                # User.objects.create_user(username=cd['username'], password=cd['password'])
-                login(request, u)
-                messages.success(request, '注册成功,您已登录')
+                    assign_perm('add_circle', u, c_tmp)
+                    u_profile.save()
+                    u = authenticate(username=cd['username'], password=cd['password'])
+                    # User.objects.create_user(username=cd['username'], password=cd['password'])
+                    login(request, u)
+                    messages.success(request, '注册成功,您已登录')
         else:
             messages.error(request, '请正确填写表单')
 

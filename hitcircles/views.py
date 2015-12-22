@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.messages import get_messages
-from user_auth.forms import RegisterForm, AddContent, Circle
+from user_auth.forms import LoginForm, RegisterForm, AddContent, Circle
 from .models import Web
 from guardian.shortcuts import assign_perm
 from django.contrib.auth.models import Group
@@ -37,8 +37,9 @@ def index_not_login(request):
     if request.user.is_authenticated() and request.user.is_active:
         return HttpResponseRedirect(reverse('site_message'))
     else:
-        form = RegisterForm()
-        return render(request, 'user/index_not_login.html', {'messages':get_messages(request), 'form':form, 'user':request.user})
+        form = LoginForm()
+        form1 = RegisterForm()
+        return render(request, 'user/index_not_login.html', {'messages':get_messages(request), 'form':form, 'form1':form1, 'user':request.user})
 
 
 def site_message(request):

@@ -1,13 +1,57 @@
-{%extends 'base.html'%}
+{%extends 'base1.html'%}
 {%block title%}
 查看与发布
 {%endblock%}
 {%block content%}
-<div class="jumbotron">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8">
+
+<div class="pusher">
+
+        <div class="ui vertical masthead segment2" style="background-image: url('/static/background_1.jpg');">
+        <div class="ui container">
+          <div class="ui large secondary inverted pointing menu" style="border: none">
+            <a class="item" href="{% url 'index_not_login' %}">
+                  首页
+              </a>
+              {% if user.username %}
+                  <a class="item" href="{% url 'censor_follow' %}">
+                      审查关注列表
+                  </a>
+                  <a class="item" href="{% url 'show_scrapy' %}">
+                      今日哈工大推送
+                  </a>
+                  <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
+                      查看个人信息
+                  </a>
+                  <div class="item">
+                      <div class="ui action input">
+                      <form action="{% url 'search_to_follow' %}" method="post">
+                          {% csrf_token %}
+                        <input type="text" name="name" placeholder="输入关注用户名">
+                            <button class="ui icon button">
+                                <i class="search icon"></i>
+                            </button>
+                      </form>
+                      </div>
+
+                    </div>
+              {% endif %}
+              <div class="right menu">
+              {% if user.username %}
+
+                    <a class="ui item" href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a>
+                    <a class="ui item" href="/logout/">登出</a>
+                    {% if user.username == 'admin' %}
+			            <a class="ui item" href="{% url 'permission_request' %}">审核用户申请</a>
+                    {% endif %}
+                    <a class="ui item" href="/add_infomation/">信息完善</a>
+                {% endif %}
+
+              </div>
+          </div>
+        </div>
+        <div class="ui grid container">
                 <div class="row">
+                    <div class="twelve wide column">
                     {% if messages %}
                         {% for message in messages %}
                             {% if message.tags == 'success' %}
@@ -49,148 +93,210 @@
                         {% endfor %}
                     <br />
                     {% endif %}
+                <div style="color:#FFFFFF;">
+                <br />
+                <div class="row" style="color:#FFFFFF;">
+                    <div class="one wide column"></div>
+                    <div class="ten wide column">
+                    <h3>来都来了，说点什么吧~</h3>
+                        <br/>
+                    </div>
                 </div>
-                <div class="row" style="color:#99CC32"><h3>来都来了，说点什么吧~</h3></div>
-                <form class='form-horizontal' action = "{% url 'site_message' %}" method = "post">
+
+                <form class='ui form' action = "{% url 'site_message' %}" method = "post">
 
                         {% csrf_token %}
-                        <div class="form-group">
-                            {{ form.title.label_tag }}
+                        <div class="field">
+                            <div style="color:#FFFFFF;">{{ form.title.label_tag }}</div>
+                            <br />
                             {{ form.title }}
                         </div>
 
-                        <div class="form-group">
-                            {{ form.content.errors }}
-                            {{ form.content.label_tag }}
+                        <div class="field">
+                            <div style="color:#FFFFFF;">{{ form.content.errors }}</div>
+                            <div style="color:#FFFFFF;">{{ form.content.label_tag }}</div>
+                            <br />
                             {{ form.content }}
                         </div>
-                        <div class="form-group">
-                            {{ form.circle.errors}}
-                            {{ form.circle.label_tag }}
-                            <label class="checkbox-inline">
+                        <div class="field">
+                            <div style="color:#FFFFFF;">{{ form.circle.errors}}</div>
+                            <div style="color:#FFFFFF;">{{ form.circle.label_tag }}</div>
                             {{ form.circle }}
-                            </label>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-2">
-                                 <input class="btn btn-primary" style="height:30px;width:100%" type="submit" name="submit" value="发布信息">
+                        <div class="field">
+                            <div class="four wide column">
+                                 <button class="ui inverted button"  type="submit" name="submit" >发布信息</button>
                             </div>
+
                         </div>
                 </form>
+                </div>
+            </div>
+
+                <div class="four wide column">
+                <br />
+
+                <div class="ui card" style="width : 500px;">
+                  <div class="content">
+                    <div class="header"><a href="{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a></div>
+                  </div>
+                  <div class="content">
+                    <h3 class="ui sub header">{{ user.profile.nickname }}</h3>
+                    <h3 class="ui sub header">{{ user.profile.school }}</h3>
+                    <h3 class="ui sub header">{{ user.profile.grade }}</h3>
+                  </div>
+                  <div class="extra content">
+
+                    <div class="ui labeled tiny button" tabindex="0">
+                      <div class="ui button">
+
+                        关注:
+                      </div>
+                      <a class="ui basic label" href="{% url 'view_followed' user.id %}">
+                        {{ user.profile.followed_count }}
+                      </a>
+                    </div>
+                    <div class="ui labeled tiny button" tabindex="0">
+                      <div class="ui button">
+                        被关注:
+                      </div>
+                      <a class="ui basic label" href="{% url 'view_follower' user.id %}">
+                        {{ user.profile.follow_count }}
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+
+                </div>
+
+
+			</div>
+
+            </div>
+        </div>
+        <div class="ui container grid">
+        <div class="eleven wide column">
+                <br />
                 <div class="row">
                     <h3>所有信息:</h3>
                 </div>
-				<ul class="nav nav-tabs" role="tablist">                    
+                <div class="ui top attached tabular menu">
                 {% for u in circle %}
                     {% if forloop.counter == 1 %}
-                    <li role="presentation" class="active"><a href="#{{ u.name }}" aria-controls={{ u.name }} role="tab" data-toggle="tab">{{ u.name }}</a></li>
+                        <a class="item active" data-tab="{{ u.name }}">{{ u.name }}</a>
                     {% else %}
-                    <li role="presentation"><a href="#{{ u.name }}" aria-controls={{ u.name }} role="tab" data-toggle="tab">{{ u.name }}</a></li>
+                        <a class="item" data-tab="{{ u.name }}">{{ u.name }}</a>
                     {% endif %}
                 {% endfor %}
-                </ul>
-                <div class="tab-content">
+                </div>
+
+
                     {% for cont in content %}
                         {% for each_cont in cont %}
                             {% if each_cont.1 %}
                                 {% if forloop.first and each_cont %}
                                     {% if forloop.parentloop.counter == 1 %}
-                                    <div role="tabpanel" class="tab-pane active" id="{{ each_cont.0 }}">
+                                        <div class="ui bottom attached tab active segment" data-tab="{{ each_cont.0 }}">
                                     {% else %}
-                                    <div role="tabpanel" class="tab-pane" id="{{ each_cont.0 }}">
+                                        <div class="ui bottom attached tab segment" data-tab="{{ each_cont.0 }}">
                                     {% endif %}
+                                    <div class="ui divided items">
                                 {% endif %}
-                                <div class="row" style="padding:3px;margin-bottom:10px;background:#E6E8FA">
-                                    <div class="row">
-            				    		<div class="col-md-3">
-            				    			<p>昵称:{{ each_cont.1.profile.nickname }}</p>
-            				    		</div>
-                                        <div class="col-md-3">
-                                            <p>{{ each_cont.1.title }}</p>
-                                        </div>
-            				    		<div class="col-md-2 col-md-offset-4">
-                                            {% if user.profile.id == each_cont.1.profile.id %}
-                                            <form action="{% url 'delete_content' %}" method="POST">
+
+                                <div class="item">
+                                    <div class="content">
+                                      <a class="header">{{ each_cont.1.title }}</a>
+                                      <div class="meta">
+                                        <span>昵称:{{ each_cont.1.profile.nickname }}</span>
+                                      </div>
+                                      <div class="description" style="max-height:150px;overflow: auto;word-break: break-all;word-wrap: break-word">
+                                        <p>
+                                            {{ each_cont.1.text }}
+                                        </p>
+                                      </div>
+                                      <div class="extra">
+                                      <div class="ui four tiny buttons">
+
+
+
+                                            <form class="ui form" action="{% url 'process_thumb_up' %}" method="POST">
                                                 {% csrf_token %}
-                                                <input type="hidden" name="delete_id" value={{ each_cont.1.id }} > </input>
-            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="删除">
+                                                <div class="field">
+                                                    <input type="hidden" name="thumb_up_id" value={{ each_cont.1.id }} > </input>
+                                                    <div class="ui labeled button" tabindex="0">
+                                                      <button class="ui red button inverted" type="submit">
+                                                        <i class="heart icon"></i> 点赞:
+                                                      </button>
+                                                      <a class="ui basic red left pointing label">
+                                                        {{ each_cont.1.thumb_up }}
+                                                      </a>
+                                                    </div>
+
+                                                    &nbsp
+                                                </div>
+                                                <!--input type="hidden" name="thumb_up_id" value={{ each_cont.1.id }} > </input>
+            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="点赞 {{ each_cont.1.thumb_up }}次"-->
+                                            </form>
+
+
+                                            <form class="ui form" action="{% url 'add_comment' %}" method="POST">
+                                                {% csrf_token %}
+                                                <div class="field">
+                                                    <input type="hidden" name="cont_id" value={{ each_cont.1.id }} > </input>
+                                                    <button class="ui blue button inverted" type="submit">评论</button>&nbsp
+                                                </div>
+                                                <!--input type="hidden" name="cont_id" value={{ each_cont.1.id }} > </input>
+            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="评论"-->
+                                            </form>
+
+
+                                            <form class="ui form" action="{% url 'show_comment' %}" method="POST">
+                                                {% csrf_token %}
+                                                <div class="field">
+                                                    <input type="hidden" name="cont_id" value={{ each_cont.1.id }} > </input>
+                                                    <button class="ui purple button inverted" type="submit">查看评论</button>&nbsp
+                                                </div>
+                                                <!--input type="hidden" name="cont_id" value={{ each_cont.1.id }} > </input>
+            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="查看评论"-->
+                                            </form>
+                                          {% if user.profile.id == each_cont.1.profile.id %}
+                                            <form class="ui form" action="{% url 'delete_content' %}" method="POST">
+                                                {% csrf_token %}
+                                                <div class="field">
+                                                    <input type="hidden" name="delete_id" value={{ each_cont.1.id }} > </input>
+                                                    <button class="ui brown button inverted" style="" type="submit">删除</button>&nbsp
+                                                </div>
+
+                                                <!--input type="hidden" name="delete_id" value={{ each_cont.1.id }} > </input>
+            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="删除"-->
                                             </form>
                                             {% endif %}
             				    		</div>
-            				    		<div class="col-md-2 col-md-offset-4">
-                                            <form action="{% url 'process_thumb_up' %}" method="POST">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="thumb_up_id" value={{ each_cont.1.id }} > </input>
-            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="点赞 {{ each_cont.1.thumb_up }}次">
-                                            </form>
-            				    		</div>
-                                        <div class="col-md-2 col-md-offset-4">
-                                            <form action="{% url 'add_comment' %}" method="POST">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="cont_id" value={{ each_cont.1.id }} > </input>
-            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="评论">
-                                            </form>
-            				    		</div>
-                                        <div class="col-md-2 col-md-offset-4">
-                                            <form action="{% url 'show_comment' %}" method="POST">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="cont_id" value={{ each_cont.1.id }} > </input>
-            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="查看评论">
-                                            </form>
-            				    		</div>
+
+                                      </div>
                                     </div>
-                                    <div class="row">
-                                        
-                                    </div>
-                                    <div class="row">
-                                         <div class="col-md-12">
-                                            <p>{{ each_cont.1.text }}</p>
-                                         </div>
-                                    </div>
+                                </div>
+
+
 
                                     {% if forloop.last and each_cont %}
                                             </div>
+                                            </div>
                                     {% endif %}
-                                </div>
+
                                 {% else %}
                                     <div role="tabpanel" class="tab-pane" id= "{{ each_cont.0 }}"></div>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
-                </div>
-			</div>
 
-			<div class="col-md-3 col-md-offset-1">
-                <br />
-				<div class="row" style="background-color:white;padding:4px">
-					<div class="col-md-4">
-						<img src="/static/brand.gif"/>
-					</div>
-					<div class="col-md-8">
-						<a href="{% url 'view_content_profile' user.profile.id  %}"> <p>{{ user.username }}</p> </a>
-					</div>
-				</div>
-				<div class="row" style="background-color:white">
-					<div class="col-md-4">
-						<p style="font-size:18px">关注你:</p>
-					</div>
-					<div class="col-md-2">
-						<p style="font-size:18px"><a href="{% url 'view_followed' user.id %}">{{ user.profile.followed_count }}</a></p>
-					</div>
-					<div class="col-md-4">
-						<p style="font-size:18px">你关注:</p>
-					</div>
-					<div class="col-md-2">
-						<p style="font-size:18px"><a href="{% url 'view_follower' user.id %}">{{ user.profile.follow_count }}</a></p>
-					</div>
-				</div>
-                {% for cir in circle %}
-                    <a href="{% url 'view_content_circle' cir.id  %}"> <p>{{ cir.name }}</p> </a>
-                {% endfor %}
-			</div>
-		</div>
-	</div>
+
+
+
 </div>
 </div>
-    {%endblock%}
+</div>
+</div>
+{%endblock%}

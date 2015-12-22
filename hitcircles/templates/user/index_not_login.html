@@ -1,44 +1,82 @@
-{% extends 'base.html' %}
+{% extends 'base1.html' %}
 {% block title %}
     首页
 {% endblock %}
 
-{% block body_style %}
-    style="background-image : url(/static/backgroundimage.jpg);background-repeat : no-repeat;padding:0;background-size:100%"
-{% endblock %}
-
-{% block bg_image %}
-    <div style="position:fixed; left:0px; top:0px; width:100%; height:100%">
-        <img src="/static/backgroundimage.jpg" width="100%" height="100%"/>
-    </div>
-{% endblock %}
 
 {% block content %}
+    <div class="ui vertical masthead center aligned segment" style="background-image: url('/static/background_1.jpg')">
+        <div class="ui container">
+          <div class="ui large secondary inverted pointing menu" style="border: none">
+            <a class="item" href="{% url 'index_not_login' %}">
+                  首页
+              </a>
+              {% if user.username %}
+                  <a class="item" href="{% url 'censor_follow' %}">
+                      审查关注列表
+                  </a>
+                  <a class="item" href="{% url 'show_scrapy' %}">
+                      今日哈工大推送
+                  </a>
+                  <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
+                      查看个人信息
+                  </a>
+                  <div class="item">
+                      <div class="ui action input">
+                      <form action="{% url 'search_to_follow' %}" method="post">
+                          {% csrf_token %}
+                        <input type="text" name="name" placeholder="输入关注用户名">
+                            <button class="ui icon button">
+                                <i class="search icon"></i>
+                            </button>
+                      </form>
+                      </div>
 
-<div class="jumbotron" style="background-color:rgba(0,0,0,0)">
-	<div class="container">
-		<div class="row" id="context-head">
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		</div>
+                    </div>
+              {% endif %}
+              <div class="right menu">
+              {% if user.username %}
+                    <div class="item">
+                      <div class="ui action input">
+                      <form action="{% url 'search_to_follow' %}" method="post">
+                          {% csrf_token %}
+                        <input type="text" name="name" placeholder="输入关注用户名">
+                            <button class="ui icon button">
+                                <i class="search icon"></i>
+                            </button>
+                      </form>
+                      </div>
+                    </div>
+                    <a class="ui item" href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a>
+                    <a class="ui item" href="/logout/">登出</a>
+                    {% if user.username == 'admin' %}
+			            <a class="ui item" href="{% url 'permission_request' %}">审核用户申请</a>
+                    {% endif %}
+                    <a class="ui item" href="/add_infomation/">信息完善</a>
+                {% endif %}
 
-		<div class="row" id="context-body">
-			<div class="col-md-6">
-				<h1>工大圈子</h1>
-				<h2>欢迎来到工大圈子</h2>
-				<p>您可以在不同的圈子里发布,浏览不同信息</p>
-				<p><a class="btn btn-primary btn-lg" href="http://v3.bootcss.com/css/#forms" role="button" target="_blank">Learn more</a></p>
+              </div>
+          </div>
+        </div>
+
+        <div class="ui container very relaxed grid" >
+		<div class="row">
+			<div class="eight wide column">
+                <h1 class="ui inverted header">
+				        工大圈子
+                </h1>
+                <h2 class="ui inverted header">
+				        欢迎来到工大圈子
+                </h2>
 			</div>
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-3">
-				<form action="" name="auth_form" method="post">
+
+
+			<div class="four wide column">
+                         <br />
+            <br />
+            <br /> <br /> <br /> <br /> <br />
+				<form class='ui form' action="{% url 'site_login' %}" method="post">
                     {% csrf_token %}
-					<div class="form-group">
                         {% if messages %}
                 {% for message in messages %}
                     {% if message.tags == 'success' %}
@@ -79,21 +117,140 @@
                     {% endif %}
                 {% endfor %}
             <br />
-            {% endif %}
-                        {{ form.username.label_tag }}
-                        {{ form.username }} </input>
-                        {{ form.password.label_tag }}
-                        {{ form.password }} </input>
 
+            {% endif %}
+
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                        {{ form.username }} </input>
+                        </div>
+
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                        {{ form.password }} </input>
+                        </div>
+                    </div>
 						<br/>
-						<input type="submit" onclick="auth_form.action={% url 'site_login' %};auth_form.submit();" class="btn btn-primary" name="login" value="登录" style="float:left">
-						<input class="btn btn-default" type="submit" onclick="auth_form.action={% url 'site_register' %};auth_form.submit();" name="register" value="注册" style="float:left">
-						<a href="#" class="btn btn-default" role="button" target="_blank" style="float:right">查看帮助?</a>
-					</div>
+                        <br />
+                        <br/>
+
+                        <button class="ui fluid large button inverted" type="submit">登录</button>
+
 				</form>
 			</div>
-		</div>
-	</div>
-</div>
 
+        <div class="ui vertical divider inverted">
+            OR
+        </div>
+            <div class="four wide column">
+            <br />
+            <br />
+            <br /> <br /> <br /> <br /> <br />
+                <form class="ui form" action="{% url 'site_register' %}" method="post">
+                    {% csrf_token %}
+
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <!--{{ form1.username.label_tag }}-->
+                            {{ form1.username }} </input>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                        {{ form1.password }} </input>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                        {{ form1.password_reconfirm }} </input>
+                        </div>
+                    </div>
+                    <button class="ui fluid large button inverted" type="submit">注册</button>
+                </form>
+            </div>
+		</div>
+
+        <div class="row" style="text-align: center">
+
+            <div class="sixteen wide column">
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+                <a href="#description">
+            <h3 class="ui inverted header">
+                查看更多
+            </h3>
+            <i class="angle double down icon inverted" style="font-size: xx-large">
+            </i>
+                </a>
+            </div>
+        </div>
+    </div>
+	</div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+
+<div class="ui grid container">
+<div class="two wide column">
+    </div>
+<a name="description">
+<div class="ui cards">
+  <div class="card">
+    <div class="image">
+      <img src="/static/head/helen.jpg">
+    </div>
+    <div class="content">
+      <div class="header">今日哈工大推荐</div>
+      <div class="description">
+        我可以帮您寻找今日哈工大中最新的相关推荐
+      </div>
+    </div>
+
+  </div>
+  <div class="card">
+    <div class="image">
+      <img src="/static/head/jenny.jpg">
+    </div>
+    <div class="content">
+      <div class="header">私密圈子</div>
+
+      <div class="description">
+        您可以在私密圈子里发送信息
+      </div>
+    </div>
+
+  </div>
+  <div class="card">
+    <div class="image">
+      <img src="/static/head/steve.jpg">
+    </div>
+    <div class="content">
+      <div class="header">热点推荐</div>
+      <div class="description">
+        实时掌握最新热点话题
+      </div>
+    </div>
+
+  </div>
+</div>
+</a>
+</div>
 {% endblock %}
