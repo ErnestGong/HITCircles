@@ -85,6 +85,12 @@
                                 <input type="hidden" name="allow_id" value={{ each.user.id }}>
                                 <button class="ui right floated primary button" type="submit" name="submit">允许关注<i class="right chevron icon"></i></button>
                             </form>
+                            <form action="{% url 'reject_follow' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="allow_id" value={{ each.user.id }}>
+                                <input type="hidden" name="my_id" value={{ user.id }}>
+                                <button class="ui right floated primary button" type="submit" name="submit">拒绝关注<i class="right chevron icon"></i></button>
+                            </form>
                         </div>
                     </div>
                     </div>

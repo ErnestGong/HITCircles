@@ -96,6 +96,7 @@ def permission_request(request):
         messages.error(request, '请先登录')
         return HttpResponseRedirect(reverse('index_not_login'))
 
+
 def search_to_follow(request):
     if request.user.is_authenticated() and request.user.is_active:
         if request.method == 'POST':
@@ -211,6 +212,18 @@ def censor_follow(request):
     else:
         messages.error(request, '请先登录')
         return HttpResponseRedirect(reverse('index_not_login'))
+
+def reject_follow(request):
+    if request.user.is_authenticated() and request.user.is_active:
+        if request.method == 'POST':
+            whoto = request.POST.get('allow_id', -1)
+            censor = request.POST.get('my_id', -1)
+            FollowSensor.objects.get(whoto=whoto, censor=censor).delete()
+        return HttpResponseRedirect(reverse("censor_follow"))
+    else:
+        messages.error(request, '请先登录')
+        return HttpResponseRedirect(reverse('index_not_login'))
+
 
 def delete_follow(request):
     if request.user.is_authenticated() and request.user.is_active:

@@ -14,4 +14,6 @@ urlpatterns = [
     url(r'^add_follow/$', views.add_follow, name='add_follow'),
     url(r'^censor_follow/$', views.censor_follow, name='censor_follow'),
     url(r'^delete_follow/$', views.delete_follow, name='delete_follow'),
+    url(r'^reject_follow/$', views.reject_follow, name='reject_follow'),
+
 ]
