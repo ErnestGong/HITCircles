@@ -219,6 +219,8 @@ def reject_follow(request):
             whoto = request.POST.get('allow_id', -1)
             censor = request.POST.get('my_id', -1)
             FollowSensor.objects.get(whoto=whoto, censor=censor).delete()
+            request.user.profile.censor_count -= 1
+            request.user.profile.save()
         return HttpResponseRedirect(reverse("censor_follow"))
     else:
         messages.error(request, '请先登录')
