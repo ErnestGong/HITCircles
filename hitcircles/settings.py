@@ -87,8 +87,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hitcircles',
         'USER': 'hitc_django',
-        'PASSWORD':'googheghhgfdjk',
-        # 'PASSWORD': 'jowei*$3gj',
+        # 'PASSWORD':'googheghhgfdjk',
+        'PASSWORD': 'jowei*$3gj',
         'HOST': 'localhost',
         'PORT': '',
     }
