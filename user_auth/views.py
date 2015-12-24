@@ -97,6 +97,18 @@ def permission_request(request):
         return HttpResponseRedirect(reverse('index_not_login'))
 
 
+def permission_reject_request(request):
+    if request.user.is_authenticated() and request.user.is_active:
+        if request.method == 'POST':
+            username = request.POST.get('username', -1)
+            circle_name = request.POST.get('circle_name', -1)
+            PendingRequest.objects.get(circle_name=circle_name, username=username).delete()
+
+        return HttpResponseRedirect(reverse('permission_request'))
+    else:
+        messages.error(request, '请先登录')
+        return HttpResponseRedirect(reverse('index_not_login'))
+
 def search_to_follow(request):
     if request.user.is_authenticated() and request.user.is_active:
         if request.method == 'POST':

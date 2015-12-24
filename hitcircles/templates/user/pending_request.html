@@ -86,6 +86,12 @@
                                 <input type="hidden" name="circle_name" value={{ req.circle_name }}>
                                 <button class="ui right floated primary button" type="submit" name="submit">允许<i class="right chevron icon"></i></button>
                             </form>
+                            <form action="{% url 'permission_reject_request' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="username" value={{ req.username }}>
+                                <input type="hidden" name="circle_name" value={{ req.circle_name }}>
+                                <button class="ui left floated primary button" type="submit" name="submit">拒绝<i class="right chevron icon"></i></button>
+                            </form>
                         </div>
                     </div>
                     </div>
