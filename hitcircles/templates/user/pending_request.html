@@ -82,7 +82,7 @@
                         <div class="extra">
                             <form action="{% url 'permission_request' %}" method="post">
                                 {% csrf_token %}
-                                <input type="hidden" name="username" value={{ req.id }}>
+                                <input type="hidden" name="username" value={{ req.username }}>
                                 <input type="hidden" name="circle_name" value={{ req.circle_name }}>
                                 <button class="ui right floated primary button" type="submit" name="submit">允许<i class="right chevron icon"></i></button>
                             </form>
