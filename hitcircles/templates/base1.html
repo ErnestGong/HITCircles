@@ -150,43 +150,7 @@
 
   </script>
 
-<script>
-window.onload = function() {
 
-    var oUl = document.getElementById('ul1');
-    var aImg = oUl.getElementsByTagName('img');
-
-    showImage();
-
-    window.onscroll = showImage;
-
-    function showImage() {
-
-        var scrollTop  = document.documentElement.scrollTop || document.body.scrollTop;
-
-        for (var i=0; i<aImg.length; i++) {
-
-            if ( !aImg[i].isLoad && getTop(aImg[i]) < scrollTop + document.documentElement.clientHeight ) {
-                //alert(i);
-                aImg[i].src = aImg[i].getAttribute('_src');
-                aImg[i].isLoad = true;
-            }
-
-        }
-
-    }
-
-    function getTop(obj) {
-        var iTop = 0;
-        while(obj) {
-            iTop += obj.offsetTop;
-            obj = obj.offsetParent;
-        }
-        return iTop;
-    }
-
-}
-</script>
 
 </head>
 <body style="background-color:#f2f2f2 " {% block body_style %}{% endblock %}>
