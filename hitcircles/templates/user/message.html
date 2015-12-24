@@ -6,7 +6,7 @@
 
 <div class="pusher">
 
-        <div class="ui vertical masthead segment2" style="background-image: url('/static/background_1.jpg');">
+        <div class="ui vertical masthead segment2" style="background-image: url('http://hitcircles-static.b0.upaiyun.com/static_file/background_1.jpg');">
         <div class="ui container">
           <div class="ui large secondary inverted pointing menu" style="border: none">
             <a class="item" href="{% url 'index_not_login' %}">
@@ -17,7 +17,7 @@
                       审查关注列表{% if user.profile.censor_count > 0 %}<div class="ui red circular label">{{ user.profile.censor_count }}</div>{% endif %}
                   </a>
                   <a class="item" href="{% url 'show_scrapy' %}">
-                      今日哈工大推送<div class="ui red circular label">Hi</div>
+                      今日哈工大推送
                   </a>
                   <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
                       查看个人信息
