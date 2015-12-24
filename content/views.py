@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.messages import get_messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+
+from guardian.shortcuts import assign_perm, remove_perm
 from .models import Content, Follow, Comment
 from user_auth.models import Circle, Profile
 from user_auth.forms import AddContent
@@ -125,10 +127,18 @@ def process_thumb_up(request):
             try:
                 content_id = int(content_id)
                 cont = Content.objects.get(id=content_id)
-                if cont.thumb_up:
-                    cont.thumb_up += 1
+                if request.user.has_perm('added_thumb_up', cont):
+                    if cont.thumb_up and cont.thumb_up > 0:
+                        cont.thumb_up -= 1
+                    else:
+                        cont.thumb_up = 0
+                    remove_perm('added_thumb_up', request.user, cont)
                 else:
-                    cont.thumb_up = 1
+                    assign_perm('added_thumb_up', request.user, cont)
+                    if cont.thumb_up:
+                        cont.thumb_up += 1
+                    else:
+                        cont.thumb_up = 1
                 cont.save()
             except:
                 messages.error(request, '请不要发出非法请求')

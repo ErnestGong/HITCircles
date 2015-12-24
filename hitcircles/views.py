@@ -3,7 +3,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from user_auth.models import Profile
-from content.models import Follow
+from content.models import Follow, Content
 from django.shortcuts import render, render_to_response
 from django.core.urlresolvers import reverse
 import datetime
@@ -56,6 +56,7 @@ def site_message(request):
     # 不考虑用post的情况下,引入权限设置
     if request.user.is_authenticated() and request.user.is_active:
         if request.user.profile.nickname is not None:
+            top_lst_ten = []
             try:
                 circle = request.user.profile.circle_set.all()
             except:
@@ -75,16 +76,28 @@ def site_message(request):
                         tmp = c.content_set.all()
                     result = []
                     for t_counter in tmp:
-                        result.append([c.name, t_counter])
+                        if request.user.has_perm('added_thumb_up', t_counter):
+                            result.append([c.name, t_counter, 1])
+                        else:
+                            result.append([c.name, t_counter, 0])
                     if not result:
                         result.append([c.name, ''])
                     content.append(result)
-                print content
+                    top_lst = Content.objects.filter(circles__name='public').order_by('-thumb_up')
+                    top_lst_ten = []
+                    top_lst_count = 0
+                    for top_lst_tmp in top_lst:
+                        if top_lst_count >= 10:
+                            break
+                        top_lst_ten.append(top_lst_tmp)
+                        top_lst_count += 1
+
             if request.method == 'POST':
                 form = AddContent(request.POST)
                 circle_user_choice = []
                 c_all = request.user.profile.circle_set.all()
                 for c in c_all:
+                    print c.name
                     circle_user_choice.append((c.name,c.name))
                 form.fields['circle'].__init__(choices=circle_user_choice)
                 if form.is_valid():
@@ -92,28 +105,34 @@ def site_message(request):
                     author = request.user.username
                     title = cd['title']
                     content = cd['content']
-                    c = request.user.profile.content_set.create(title=title, text=content)
-                    for c_info in cd['circle']:
-                        try:
-                            my_circle = Circle.objects.get(name = c_info)
-                        except:
-                            messages.error(request, '请不要非法修改信息')
-                        else:
-                            c.circles.add(my_circle)
-                            c.save()
-                            assign_perm('delete_content', request.user, c)
-                            messages.success(request, '成功添加内容')
-                        return HttpResponseRedirect(reverse('site_message'))
-                return render(request, 'user/message.html', {'circle':circle, 'content':content, 'form':form, 'user':request.user, 'messages':get_messages(request)})
+                    c = request.user.profile.content_set.create(title=title, text=content, thumb_up=0)
+                    print 'which_circle'
+                    print cd['circle']
+
+                    try:
+                        my_circle = Circle.objects.get(name = cd['circle'])
+                        print "get it"
+                        print my_circle.name
+                        # print c_info
+                    except:
+                        messages.error(request, '请不要非法修改信息')
+                    else:
+                        c.circles.add(my_circle)
+                        c.save()
+                        assign_perm('delete_content', request.user, c)
+                        messages.success(request, '成功添加内容')
+                    return HttpResponseRedirect(reverse('site_message'))
+                return render(request, 'user/message.html', {'circle':circle, 'top_ten':top_lst_ten, 'content':content, 'form':form, 'user':request.user, 'messages':get_messages(request)})
 
             else:
                 form = AddContent()
                 circle_user_choice = []
                 c_all = request.user.profile.circle_set.all()
                 for c in c_all:
+                    print c.name
                     circle_user_choice.append((c.name,c.name))
                 form.fields['circle'].__init__(choices=circle_user_choice)
-                return render(request, 'user/message.html', {'circle':circle, 'content':content, 'form':form, 'user':request.user, 'messages':get_messages(request)})
+                return render(request, 'user/message.html', {'circle':circle,'top_ten':top_lst_ten, 'content':content, 'form':form, 'user':request.user, 'messages':get_messages(request)})
         else:
             return HttpResponseRedirect(reverse('add_infomation'))
     else:

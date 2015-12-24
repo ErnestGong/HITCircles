@@ -18,7 +18,10 @@ class Content(models.Model):
     title = models.CharField(max_length=100)
     text = models.CharField(max_length=1000)
     thumb_up = models.BigIntegerField(null=True)
-
+    class Meta:
+        permissions = (
+            ('added_thumb_up', 'added_thumb_up'),
+        )
 class Comment(models.Model):
     profile = models.ForeignKey(Profile, null=True)
     text = models.CharField(max_length=1000)

@@ -12,10 +12,10 @@
               </a>
               {% if user.username %}
                   <a class="item" href="{% url 'censor_follow' %}">
-                      审查关注列表
+                      审查关注列表{% if user.profile.censor_count > 0 %}<div class="ui red circular label">{{ user.profile.censor_count }}</div>{% endif %}
                   </a>
                   <a class="item" href="{% url 'show_scrapy' %}">
-                      今日哈工大推送
+                      今日哈工大推送<div class="ui red circular label">Hi</div>
                   </a>
                   <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
                       查看个人信息
