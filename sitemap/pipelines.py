@@ -13,7 +13,7 @@ class ExamplePipeline(object):
         self.dbpool = adbapi.ConnectionPool('MySQLdb',  
             db = 'hitcircles',  
             user = 'hitc_django', 
-            passwd = 'jowei*$3gj',  
+            passwd = 'googheghhgfdjk',  
             cursorclass = MySQLdb.cursors.DictCursor,  
             charset = 'utf8',  
             use_unicode = True 

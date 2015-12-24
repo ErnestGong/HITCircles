@@ -21,7 +21,7 @@ class MySpider(CrawlSpider):
         title = sel.xpath("//div[@class='articleTitle']/text()").extract()
         content = sel.xpath("//div[@class='articletext']").extract()
         site = SitemapItem2()
-        site["title1"] = title
+        site["title1"] = title[0]
         site["content1"] = content[0].encode("utf-8")
         site["link1"] = response.url
         return site
