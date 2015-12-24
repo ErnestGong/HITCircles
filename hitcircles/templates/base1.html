@@ -4,8 +4,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}{% endblock %}</title>
-    <script type="text/javascript">window._MM_HS=+new Date</script>
-    <link rel="stylesheet" href="/static/css/semantic.min.css">
+
+    <link rel="stylesheet" href="http://cdn.staticfile.org/semantic-ui/2.1.6/semantic.min.css">
     {% block script %}{% endblock %}
   <style type="text/css">
 
@@ -104,9 +104,8 @@
 
 
   </style>
-    <script src="/static/js/allinone.js"></script>
-
-    <script type="text/javascript"> window._MM_CID="235",window._MM_TP="pc",function(t){t.JSMON={_head_end:+new Date,_head_start:t._MM_HS||0,_customer_id:t._MM_CID,_part2_url:"http://s1.mmtrix.com/jm/v1/"+t._MM_CID+"/p.js",_part2_expire_minutes:60,_tp:t._MM_TP,_time_stamps:{},_fs_marks:[],_waiting_list:t._MM_WL&&t._MM_WL.split(",")||[],_mark:function(t){this._time_stamps[t]=+new Date},mark:function(t,e){var n,a=+e||+new Date,i=this._time_stamps,o=this._waiting_list,d=[];for((!i[t]||i[t]<a)&&(i[t]=a),n=o.length-1;n>=0;n--)o[n]!==t&&d.push(o[n]);d.length<o.length&&(this._waiting_list=d,this.goahead&&this.goahead())} },"test"===t.JSMON._customer_id&&(t.JSMON._part2_url="http://127.0.0.1:8080/p.js");var e=function(t,e){var n=!1,a=!0,i=t.document,o=i.documentElement,d=!!i.addEventListener,r=d?"addEventListener":"attachEvent",s=d?"removeEventListener":"detachEvent",_=d?"":"on",c=function(a){("readystatechange"!=a.type||/complete|interactive/.test(i.readyState))&&(a.type&&("load"==a.type?t:i)[s](_+a.type,c,!1),!n&&(n=!0)&&e.call(t,a.type||a))},l=function(){try{o.doScroll("left")}catch(t){return void setTimeout(l,50)}c("poll")};if("complete"==i.readyState)e.call(t,"lazy");else{if(!d&&o.doScroll){try{a=!t.frameElement}catch(m){}a&&l()}i[r](_+"DOMContentLoaded",c,!1),i[r](_+"readystatechange",c,!1),t[r](_+"load",c,!1)} };e(t,function(){window.JSMON&&window.JSMON._mark&&window.JSMON._mark("_dc2");var t,e,n,a,i,o=window,d=o.document,r=d.getElementsByTagName("img"),s=d.getElementsByTagName("IFRAME");for(i=function(){o.JSMON._fs_marks.push({img:this,time:+new Date}),this.removeEventListener?this.removeEventListener("load",i,!1):this.detachEvent&&this.detachEvent("IFRAME"===this.nodeName?"onload":"onreadystatechange",i)},t=0,e=r.length;e>t;t++)n=r[t],n.addEventListener?!n.complete&&n.addEventListener("load",i,!1):n.attachEvent&&n.attachEvent("onreadystatechange",function(){"complete"==n.readyState&&i.call(n)});for(t=0,e=s.length;e>t;t++)a=s[t],a.addEventListener?a.addEventListener("load",i,!1):a.attachEvent&&a.attachEvent("onload",function(){i.call(a)})});var n=function(){window.JSMON&&window.JSMON._mark&&window.JSMON._mark("_lt"),setTimeout(function(){var t,e=document.createElement("script"),n=window.JSMON;e.type="text/javascript",t=n._part2_url,e.src=t,document.getElementsByTagName("body")[0].appendChild(e)},0)};document.addEventListener?t.addEventListener("load",n,!1):t.attachEvent("onload",n)}(window); </script>
+    <script src="http://cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/semantic-ui/2.1.6/semantic.min.js"></script>
   <script>
   $(document)
     .ready(function() {
@@ -207,13 +206,6 @@
 </div>
 
 
-<!--
-<div style="display:none;">
-
-<script src="http://s4.cnzz.com/z_stat.php?id=1257013290&web_id=1257013290" language="JavaScript"></script>
-
-</div>
--->
 </body>
 
 </html>
