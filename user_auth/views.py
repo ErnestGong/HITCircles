@@ -112,7 +112,7 @@ def add_follow(request):
         if request.method == 'POST':
             try:
                 usr = User.objects.get(id=int(request.POST['user_id']))
-                print usr.username
+
             except:
                 messages.error(request, '请不要非法修改数据')
                 return HttpResponseRedirect(reverse('search_to_follow'))
@@ -278,8 +278,6 @@ def add_infomation(request):
                 elif auth_status == 'censor':
                     request.user.user_permissions.add(p_censor)
 
-                print '原始'
-                print cd['circles']
                 for c in cd['circles']:
                     try:
                        cir = Circle.objects.get(name=c)

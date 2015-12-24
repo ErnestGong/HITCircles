@@ -97,7 +97,7 @@ def site_message(request):
                 circle_user_choice = []
                 c_all = request.user.profile.circle_set.all()
                 for c in c_all:
-                    print c.name
+
                     circle_user_choice.append((c.name,c.name))
                 form.fields['circle'].__init__(choices=circle_user_choice)
                 if form.is_valid():
@@ -106,13 +106,11 @@ def site_message(request):
                     title = cd['title']
                     content = cd['content']
                     c = request.user.profile.content_set.create(title=title, text=content, thumb_up=0)
-                    print 'which_circle'
-                    print cd['circle']
+
 
                     try:
                         my_circle = Circle.objects.get(name = cd['circle'])
-                        print "get it"
-                        print my_circle.name
+
                         # print c_info
                     except:
                         messages.error(request, '请不要非法修改信息')
@@ -129,7 +127,7 @@ def site_message(request):
                 circle_user_choice = []
                 c_all = request.user.profile.circle_set.all()
                 for c in c_all:
-                    print c.name
+
                     circle_user_choice.append((c.name,c.name))
                 form.fields['circle'].__init__(choices=circle_user_choice)
                 return render(request, 'user/message.html', {'circle':circle,'top_ten':top_lst_ten, 'content':content, 'form':form, 'user':request.user, 'messages':get_messages(request)})
