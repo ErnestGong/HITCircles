@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b10e8798-4508-4356-8ff4-677e04c4e4c7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hitcircles/views.py" afterPath="$PROJECT_DIR$/hitcircles/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hitcircles/templates/scrapy_show.html" afterPath="$PROJECT_DIR$/hitcircles/templates/scrapy_show.html" />
     </list>
     <ignored path="HITCircles.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -82,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scrapy_show.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="scrapy_show.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hitcircles/templates/scrapy_show.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-57.5">
-              <caret line="118" column="32" selection-start-line="118" selection-start-column="32" selection-end-line="118" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.58111703">
+              <caret line="82" column="6" selection-start-line="82" selection-start-column="6" selection-end-line="82" selection-end-column="6" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -115,11 +115,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hitcircles/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40592784">
-              <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="37" column="92" selection-start-line="37" selection-start-column="92" selection-end-line="37" selection-end-column="92" />
               <folding>
                 <element signature="e#25#53#0" expanded="true" />
               </folding>
@@ -200,10 +200,10 @@
         <option value="$PROJECT_DIR$/hitcircles/static/css/semantic.min.css" />
         <option value="$PROJECT_DIR$/hitcircles/templates/user/add_infomation.html" />
         <option value="$PROJECT_DIR$/hitcircles/templates/user/index_not_login.html" />
-        <option value="$PROJECT_DIR$/hitcircles/templates/scrapy_show.html" />
         <option value="$PROJECT_DIR$/hitcircles/templates/base1.html" />
         <option value="$PROJECT_DIR$/hitcircles/settings.py" />
         <option value="$PROJECT_DIR$/hitcircles/views.py" />
+        <option value="$PROJECT_DIR$/hitcircles/templates/scrapy_show.html" />
       </list>
     </option>
   </component>
@@ -213,7 +213,7 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="371" />
+    <option name="x" value="228" />
     <option name="y" value="23" />
     <option name="width" value="1286" />
     <option name="height" value="873" />
@@ -683,7 +683,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="371" y="23" width="1286" height="873" extended-state="0" />
+    <frame x="228" y="23" width="1286" height="873" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16329704" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1084,23 +1084,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hitcircles/templates/scrapy_show.html">
+    <entry file="file://$PROJECT_DIR$/hitcircles/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-57.5">
-          <caret line="118" column="32" selection-start-line="118" selection-start-column="32" selection-end-line="118" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="92" selection-start-line="37" selection-start-column="92" selection-end-line="37" selection-end-column="92" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#25#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hitcircles/views.py">
+    <entry file="file://$PROJECT_DIR$/hitcircles/templates/scrapy_show.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40592784">
-          <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.58111703">
+          <caret line="82" column="6" selection-start-line="82" selection-start-column="6" selection-end-line="82" selection-end-column="6" />
           <folding>
-            <element signature="e#25#53#0" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

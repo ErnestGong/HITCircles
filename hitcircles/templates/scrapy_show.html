@@ -3,33 +3,7 @@
 detail for my scrapy project
 {%endblock%}
 {%block content%}
-<!--div class="jumbotron">
-	<div class="container">
-		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-		{% for message in messages %}
-		<div class="panel panel-default">
-		    <div class="panel-heading" role="tab" id="heading{{forloop.counter}}">
-		      <h4 class="panel-title">
-		        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
-			          {{message.title}}
-			       </a>
-			      </h4>
-			    </div>
-			    <div id="collapse{{forloop.counter}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{forloop.counter}}">
-			      <div class="panel-body">
-			      	    <a href="{{message.link}}">{{message.title}}</a>
-		        		    {% autoescape off %}
-				    <div>
-				        	
-				    </div>
-				    {% endautoescape %}
-			      </div>
-			 </div>
-		</div >
-		{% endfor %}
-		</div>
-	</div>
-</div-->
+
 <div class="ui vertical segment2" style="background-image: url('/static/background_1.jpg');">
     <div class="ui container">
     	<div class="ui large secondary inverted pointing menu" style="border: none">
@@ -72,9 +46,10 @@ detail for my scrapy project
   	    </div>
             <div class="ui grid container">
                 <br/><br/>
-            <h1 class="header" style="color: #ffffff;">搜索用户结果</h1>
+            <h1 class="header" style="color: #ffffff;">今日哈工大</h1>
 <br/><br/><br/><br/><br/>
         </div>
+
 
     </div>
 </div>
