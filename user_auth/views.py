@@ -77,13 +77,13 @@ def permission_request(request):
             if request.method == 'POST':
                 username = request.POST['username']
                 circle_name = request.POST['circle_name']
-                user = User.objects.get(username=username)
+                user = User.objects.get(id=username)
                 circle = Circle.objects.get(name=circle_name)
                 user.profile.circle_set.add(circle)
                 user.save()
                 # # permission query没有存放,本来为view_vircle
                 assign_perm('add_circle', user, circle)
-                PendingRequest.objects.get(username=username, circle_name=circle_name).delete()
+                PendingRequest.objects.get(id=username, circle_name=circle_name).delete()
                 messages.success(request, '成功为其赋权')
                 return HttpResponseRedirect(reverse('permission_request'))
             else:
