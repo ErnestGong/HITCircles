@@ -1,9 +1,9 @@
-{%extends 'base.html'%}
+{%extends 'base1.html'%}
 {%block title%}
 detail for my scrapy project
 {%endblock%}
 {%block content%}
-<div class="jumbotron">
+<!--div class="jumbotron">
 	<div class="container">
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 		{% for message in messages %}
@@ -20,7 +20,7 @@ detail for my scrapy project
 			      	    <a href="{{message.link}}">{{message.title}}</a>
 		        		    {% autoescape off %}
 				    <div>
-				        	{{message.content}}
+				        	
 				    </div>
 				    {% endautoescape %}
 			      </div>
@@ -29,5 +29,111 @@ detail for my scrapy project
 		{% endfor %}
 		</div>
 	</div>
+</div-->
+<div class="ui vertical segment2" style="background-image: url('/static/background_1.jpg');">
+    <div class="ui container">
+    	<div class="ui large secondary inverted pointing menu" style="border: none">
+          <a class="item" href="{% url 'index_not_login' %}">
+                  首页
+          </a>
+          {% if user.username %}
+              <a class="item" href="{% url 'censor_follow' %}">
+                  审查关注列表
+              </a>
+              <a class="item" href="{% url 'show_scrapy' %}">
+                  今日哈工大推送
+              </a>
+              <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
+                  查看个人信息
+              </a>
+              <div class="item">
+                  <div class="ui action input">
+                  <form action="{% url 'search_to_follow' %}" method="post">
+                      {% csrf_token %}
+                    <input type="text" name="name" placeholder="输入关注用户昵称">
+                        <button class="ui icon button">
+                            <i class="search icon"></i>
+                        </button>
+                  </form>
+                  </div>
+
+                </div>
+          {% endif %}
+          <div class="right menu">
+          {% if user.username %}
+                <a class="ui item" href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a>
+                <a class="ui item" href="/logout/">登出</a>
+                {% if user.username == 'admin' %}
+		            <a class="ui item" href="{% url 'permission_request' %}">审核用户申请</a>
+                {% endif %}
+                <a class="ui item" href="/add_infomation/">信息完善</a>
+            {% endif %}
+  		  </div>
+  	    </div>
+            <div class="ui grid container">
+                <br/><br/>
+            <h1 class="header" style="color: #ffffff;">搜索用户结果</h1>
+<br/><br/><br/><br/><br/>
+        </div>
+
+    </div>
 </div>
+<div class="ui top attached tabular red menu">
+  <a class="active item" data-tab="first">计算机学院</a>
+  <a class="item" data-tab="second">本科生院</a>
+</div>
+<div class="ui bottom attached active tab segment" data-tab="first">
+<br />
+<br />
+<br />
+<br />
+
+  <div class="ui styled accordion grid container">
+	  {% for message in messages1 %}
+	  <div class="sixteen wide column">
+		  <div class="title">
+		    <i class="dropdown icon"></i>
+		    {{ message.title }}
+		  </div>
+		  <div class="content">
+			{% autoescape off %}
+		  	<div class="transition hidden">
+			   	{{ message.content }}
+		  	</div>
+		  	{% endautoescape %}
+		  </div>
+	  </div>	
+	  {% endfor %}
+	</div>
+</div>
+<div class="ui bottom attached tab segment" data-tab="second">
+<br />
+<br />
+<br />
+<br />
+
+	<div class="ui styled accordion grid container">
+	  {% for message in messages2 %}
+	  <div class="sixteen wide column">
+		  <div class="title">
+		    <i class="dropdown icon"></i>
+		    {{ message.title1 }}
+		  </div>
+		  <div class="content">
+			{% autoescape off %}
+		  	<div class="transition hidden">
+			   	{{ message.content1 }}
+		  	</div>
+		  	{% endautoescape %}
+		  </div>
+	  </div>	
+	  {% endfor %}
+	</div>
+</div>
+
+
+
+
+
+
 {% endblock %}
