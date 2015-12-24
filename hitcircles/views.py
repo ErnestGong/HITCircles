@@ -25,7 +25,7 @@ def scrapy_show(request):
         detail2 = []
         len1 = len(details1)
         len2 = len(details2)
-        if len1 <= 0 or len2 <= 0:
+        if len1 <= 0 and len2 <= 0:
             return render(request, 'scrapy_show.html',{"message":"No information"})
         for i in range (0,len1):
             details1[i].content = details1[i].content.replace("/uploadfiles","http://today.hit.edu.cn/uploadfiles")
