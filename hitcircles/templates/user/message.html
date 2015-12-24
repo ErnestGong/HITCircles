@@ -308,7 +308,7 @@
                                       <form class="ui form">
                                         <div class="field">
                                         <button class="ui disabled red button">
-                                          赞: {{ top.thumb_up }}
+                                          赞: {% if top.thumb_up == None %}0{% else %}{{ top.thumb_up }}{% endif %}
                                         </button>&nbsp;
                                         </div>
                                       </form>

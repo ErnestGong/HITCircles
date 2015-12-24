@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b10e8798-4508-4356-8ff4-677e04c4e4c7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hitcircles/settings.py" afterPath="$PROJECT_DIR$/hitcircles/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hitcircles/views.py" afterPath="$PROJECT_DIR$/hitcircles/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/user_auth/views.py" afterPath="$PROJECT_DIR$/user_auth/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hitcircles/templates/user/message.html" afterPath="$PROJECT_DIR$/hitcircles/templates/user/message.html" />
     </list>
     <ignored path="HITCircles.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -86,11 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="message.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="message.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hitcircles/templates/user/message.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.3076923">
-              <caret line="279" column="36" selection-start-line="279" selection-start-column="36" selection-end-line="279" selection-end-column="36" />
+            <state vertical-scroll-proportion="-0.042979944">
+              <caret line="310" column="75" selection-start-line="310" selection-start-column="75" selection-end-line="310" selection-end-column="75" />
               <folding>
                 <element signature="e#14296#14358#0#HTML" expanded="true" />
                 <element signature="e#14848#14931#0#HTML" expanded="true" />
@@ -99,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hitcircles/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.875">
-              <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="82" column="63" selection-start-line="82" selection-start-column="63" selection-end-line="82" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -202,10 +200,10 @@
         <option value="$PROJECT_DIR$/content/templates/content/show_comment.html" />
         <option value="$PROJECT_DIR$/hitcircles/templates/base1.html" />
         <option value="$PROJECT_DIR$/hitcircles/templates/scrapy_show.html" />
-        <option value="$PROJECT_DIR$/hitcircles/templates/user/message.html" />
         <option value="$PROJECT_DIR$/hitcircles/views.py" />
         <option value="$PROJECT_DIR$/user_auth/views.py" />
         <option value="$PROJECT_DIR$/hitcircles/settings.py" />
+        <option value="$PROJECT_DIR$/hitcircles/templates/user/message.html" />
       </list>
     </option>
   </component>
@@ -1113,40 +1111,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hitcircles/templates/user/search_to_follow.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.333333">
-          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="88" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/content/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hitcircles/templates/user/message.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.3076923">
-          <caret line="279" column="36" selection-start-line="279" selection-start-column="36" selection-end-line="279" selection-end-column="36" />
-          <folding>
-            <element signature="e#14296#14358#0#HTML" expanded="true" />
-            <element signature="e#14848#14931#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user_auth/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.407408">
-          <caret line="340" column="39" selection-start-line="340" selection-start-column="39" selection-end-line="340" selection-end-column="39" />
-          <folding>
-            <element signature="e#25#60#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1170,9 +1139,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hitcircles/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.875">
-          <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="82" column="63" selection-start-line="82" selection-start-column="63" selection-end-line="82" selection-end-column="63" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user_auth/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.407408">
+          <caret line="340" column="39" selection-start-line="340" selection-start-column="39" selection-end-line="340" selection-end-column="39" />
+          <folding>
+            <element signature="e#25#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hitcircles/templates/user/search_to_follow.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.333333">
+          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="88" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hitcircles/templates/user/message.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.042979944">
+          <caret line="310" column="75" selection-start-line="310" selection-start-column="75" selection-end-line="310" selection-end-column="75" />
+          <folding>
+            <element signature="e#14296#14358#0#HTML" expanded="true" />
+            <element signature="e#14848#14931#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
