@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b10e8798-4508-4356-8ff4-677e04c4e4c7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hitcircles/templates/base1.html" afterPath="$PROJECT_DIR$/hitcircles/templates/base1.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hitcircles/templates/user/index_not_login.html" afterPath="$PROJECT_DIR$/hitcircles/templates/user/index_not_login.html" />
     </list>
     <ignored path="HITCircles.iws" />
@@ -55,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base1.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="base1.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hitcircles/templates/base1.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.5">
-              <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.5013298">
+              <caret line="194" column="19" selection-start-line="194" selection-start-column="19" selection-end-line="194" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -99,11 +98,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index_not_login.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index_not_login.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hitcircles/templates/user/index_not_login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40159574">
-              <caret line="188" column="35" selection-start-line="188" selection-start-column="35" selection-end-line="188" selection-end-column="35" />
+            <state vertical-scroll-proportion="-14.458333">
+              <caret line="204" column="14" selection-start-line="204" selection-start-column="14" selection-end-line="204" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -1173,18 +1172,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hitcircles/templates/base1.html">
+    <entry file="file://$PROJECT_DIR$/hitcircles/templates/user/index_not_login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5">
-          <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+        <state vertical-scroll-proportion="-14.458333">
+          <caret line="204" column="14" selection-start-line="204" selection-start-column="14" selection-end-line="204" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hitcircles/templates/user/index_not_login.html">
+    <entry file="file://$PROJECT_DIR$/hitcircles/templates/base1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40159574">
-          <caret line="188" column="35" selection-start-line="188" selection-start-column="35" selection-end-line="188" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.5013298">
+          <caret line="194" column="19" selection-start-line="194" selection-start-column="19" selection-end-line="194" selection-end-column="19" />
           <folding />
         </state>
       </provider>
