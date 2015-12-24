@@ -28,11 +28,11 @@ def scrapy_show(request):
         if len1 <= 0 or len2 <= 0:
             return render(request, 'scrapy_show.html',{"message":"No information"})
         for i in range (0,len1):
-            detail1.append(details1[i])
             details1[i].content = details1[i].content.replace("/uploadfiles","http://today.hit.edu.cn/uploadfiles")
+            detail1.append(details1[i][:])
         for i in range(0,len2):
-            detail2.append(details2[i])
             details2[i].content1 = details2[i].content1.replace("/uploadfiles","http://today.hit.edu.cn/uploadfiles")
+            detail2.append(details2[i][:])
         detail1.sort(reverse = True,cmp=lambda x,y:cmp(x.link,y.link))
         detail2.sort(reverse = True,cmp=lambda x,y:cmp(x.link1,y.link1))
         return render(request, 'scrapy_show.html',{"messages1":detail1,"messages2":detail2})
