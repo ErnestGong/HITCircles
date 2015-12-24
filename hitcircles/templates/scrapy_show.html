@@ -3,56 +3,67 @@
 detail for my scrapy project
 {%endblock%}
 {%block content%}
-
-<div class="ui vertical segment2" style="background-image: url('/static/background_1.jpg');">
-    <div class="ui container">
-    	<div class="ui large secondary inverted pointing menu" style="border: none">
-          <a class="item" href="{% url 'index_not_login' %}">
+        <div class="ui vertical masthead segment_sub" style="background-image: url('/static/background_1.jpg');">
+        <div class="ui container">
+          <div class="ui large secondary inverted pointing menu" style="border: none">
+            <a class="item" href="{% url 'index_not_login' %}">
                   首页
-          </a>
-          {% if user.username %}
-              <a class="item" href="{% url 'censor_follow' %}">
-                  审查关注列表
               </a>
-              <a class="item" href="{% url 'show_scrapy' %}">
-                  今日哈工大推送
-              </a>
-              <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
-                  查看个人信息
-              </a>
-              <div class="item">
-                  <div class="ui action input">
-                  <form action="{% url 'search_to_follow' %}" method="post">
-                      {% csrf_token %}
-                    <input type="text" name="name" placeholder="输入关注用户昵称">
-                        <button class="ui icon button">
-                            <i class="search icon"></i>
-                        </button>
-                  </form>
-                  </div>
+              {% if user.username %}
+                  <a class="item" href="{% url 'censor_follow' %}">
+                      审查关注列表
+                  </a>
+                  <a class="item" href="{% url 'show_scrapy' %}">
+                      今日哈工大推送
+                  </a>
+                  <a class="item" href="{% url 'view_content_profile' user.profile.id  %}">
+                      查看个人信息
+                  </a>
+                  <div class="item">
+                      <div class="ui action input">
+                      <form action="{% url 'search_to_follow' %}" method="post">
+                          {% csrf_token %}
+                        <input type="text" name="name" placeholder="输入关注用户昵称">
+                            <button class="ui icon button">
+                                <i class="search icon"></i>
+                            </button>
+                      </form>
+                      </div>
 
-                </div>
-          {% endif %}
-          <div class="right menu">
-          {% if user.username %}
-                <a class="ui item" href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a>
-                <a class="ui item" href="/logout/">登出</a>
-                {% if user.username == 'admin' %}
-		            <a class="ui item" href="{% url 'permission_request' %}">审核用户申请</a>
+                    </div>
+              {% endif %}
+              <div class="right menu">
+              {% if user.username %}
+
+                    <a class="ui item" href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a>
+                    <a class="ui item" href="/logout/">登出</a>
+                    {% if user.username == 'admin' %}
+			            <a class="ui item" href="{% url 'permission_request' %}">审核用户申请</a>
+                    {% endif %}
+                    <a class="ui item" href="/add_infomation/">信息完善</a>
                 {% endif %}
-                <a class="ui item" href="/add_infomation/">信息完善</a>
-            {% endif %}
-  		  </div>
-  	    </div>
-            <div class="ui grid container">
-                <br/><br/>
+
+              </div>
+          </div>
+        </div>
+        </br>
+        </br>
+        <div class="ui grid container">
             <h1 class="header" style="color: #ffffff;">今日哈工大</h1>
-<br/><br/><br/><br/><br/>
+        </div>
         </div>
 
 
-    </div>
-</div>
+
+
+
+
+
+
+
+
+
+
 <div class="ui top attached tabular red menu">
   <a class="active item" data-tab="first">计算机学院</a>
   <a class="item" data-tab="second">本科生院</a>
