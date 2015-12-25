@@ -70,10 +70,10 @@ def site_message(request):
                         for follow_usr_lst in Follow.objects.filter(follower=request.user.id):
                             u = User.objects.get(id=follow_usr_lst.followed)
                             p = u.profile
-                            p_content = p.content_set.all().filter(circles__name='public')
+                            p_content = p.content_set.all().filter(circles__name='public').reverse()
                             tmp += p_content
                     else:
-                        tmp = c.content_set.all()
+                        tmp = c.content_set.all().reverse()
                     result = []
                     for t_counter in tmp:
                         if request.user.has_perm('added_thumb_up', t_counter):
