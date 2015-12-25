@@ -89,7 +89,8 @@ def site_message(request):
                             for sort_count in tmp:
                                 sort_tmp.append(sort_count)
                             if sort_tmp:
-                                tmp = sort_tmp.reverse()[:]
+                                sort_tmp.reverse()
+                                tmp = sort_tmp[:]
                     result = []
                     for t_counter in tmp:
                         if request.user.has_perm('added_thumb_up', t_counter):
