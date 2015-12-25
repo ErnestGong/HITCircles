@@ -1,6 +1,6 @@
 {%extends 'base1.html'%}
 {%block title%}
-查看与发布
+添加圈子
 {%endblock%}
 {%block content%}
 <div class="pusher">
@@ -51,7 +51,7 @@
         </br>
         </br>
         <div class="ui grid container">
-            <h1 class="header" style="color: #ffffff;">查看评论</h1>
+            <h1 class="header" style="color: #ffffff;">添加圈子</h1>
         </div>
         </div>
 
@@ -72,22 +72,17 @@
                     {% endif %}
                 <br />
             <div class="ui raised segment">
-				<div class="ui divided items">
-                    {% for cont in comment %}
-                    <div class="item">
-                    <div class="content">
-                        <a class="header">{{ cont.profile.nickname }}</a>
-                        <div class="description" style="max-height:150px;overflow: auto;word-break: break-all;word-wrap: break-word">
-                            <p>{{ cont.text }}</p>
-                        </div>
-                    </div>
-                    </div>
-
-                    {% endfor %}
-                    {% if not comment %}
-                        <h1>没有评论</h1>
-                    {% endif %}
-				</div>
+                <div class="item">
+                      <div class="ui action input">
+                      <form action="{% url 'add_circle' %}" method="post">
+                          {% csrf_token %}
+                        <input type="text" name="circle_name" placeholder="输入圈子名称">
+                            <button class="ui icon button">
+                                <i class="add circle icon"></i>
+                            </button>
+                      </form>
+                      </div>
+                </div>
             </div>
 			</div>
 		</div>

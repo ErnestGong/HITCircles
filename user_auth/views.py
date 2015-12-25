@@ -96,6 +96,25 @@ def permission_request(request):
         messages.error(request, '请先登录')
         return HttpResponseRedirect(reverse('index_not_login'))
 
+def add_circle(request):
+    if request.user.is_authenticated() and request.user.is_active:
+        if request.user.has_perm('user_auth.change_circle'):
+            if request.method == 'POST':
+                circle_name = request.POST['circle_name']
+                c = Circle(name=circle_name, statement="")
+                c.save()
+                # # permission query没有存放,本来为view_vircle
+                messages.success(request, "添加成功")
+                return HttpResponseRedirect(reverse('add_circle'))
+            else:
+                return render(request, 'user/add_circle.html', {'messages':get_messages(request), 'user':request.user})
+        else:
+            messages.error(request, '您没有添加权限')
+            return HttpResponseRedirect(reverse('site_message'))
+    else:
+        messages.error(request, '请先登录')
+        return HttpResponseRedirect(reverse('index_not_login'))
+
 
 def permission_reject_request(request):
     if request.user.is_authenticated() and request.user.is_active:

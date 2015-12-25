@@ -39,6 +39,7 @@
                     <a class="ui item" href= "{% url 'view_content_profile' user.profile.id  %}">{{ user.username }}</a>
                     <a class="ui item" href="/logout/">登出</a>
                     {% if user.username == 'admin' %}
+                        <a class="ui item" href="{% url 'add_circle' %}">添加圈子</a>
 			            <a class="ui item" href="{% url 'permission_request' %}">审核用户申请</a>
                     {% endif %}
                     <a class="ui item" href="/add_infomation/">信息完善</a>
