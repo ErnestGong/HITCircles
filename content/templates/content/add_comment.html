@@ -51,7 +51,7 @@
         </br>
         </br>
         <div class="ui grid container">
-            <h1 class="header" style="color: #ffffff;">添加评论</h1>
+            <h1 class="header" style="color: #ffffff;">评论</h1>
         </div>
         </div>
 
@@ -89,6 +89,30 @@
 
                     </div>
                 </form>
+			</div>
+		</div>
+        <div class="row">
+			<div class="ten wide column">
+                <br />
+            <h1>所有评论</h1>
+            <div class="ui raised segment">
+				<div class="ui divided items">
+                    {% for comment in c_comment %}
+                    <div class="item">
+                    <div class="content">
+                        <a class="header">{{ comment.profile.nickname }}</a>
+                        <div class="description" style="max-height:150px;overflow: auto;word-break: break-all;word-wrap: break-word">
+                            <p>{{ comment.text }}</p>
+                        </div>
+                    </div>
+                    </div>
+
+                    {% endfor %}
+                    {% if not c_comment %}
+                        <h1>没有评论</h1>
+                    {% endif %}
+				</div>
+            </div>
 			</div>
 		</div>
 	</div>

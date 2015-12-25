@@ -44,10 +44,23 @@ def add_comment(request):
                 u = User.objects.get(id=int(user_id))
                 c_add = Content.objects.get(id=int(cont_id)).comment_set.create(text=comment, profile=u.profile)
                 messages.success(request, '成功添加评论')
-                return HttpResponseRedirect(reverse('site_message'))
+                c_comment = Content.objects.get(id=int(cont_id)).comment_set.all()
+                c_reverse = []
+                for reverse_count in c_comment:
+                    c_reverse.append(reverse_count)
+                c_reverse.reverse()
+                c_comment = c_reverse[:]
+                return render(request, 'content/add_comment.html', {'cont_id':cont_id, 'c_comment':c_comment, 'user':request.user, 'messages':get_messages(request)})
+            elif cont_id:
+                c_comment =  Content.objects.get(id=int(cont_id)).comment_set.all()
+                c_reverse = []
+                for reverse_count in c_comment:
+                    c_reverse.append(reverse_count)
+                c_reverse.reverse()
+                c_comment = c_reverse[:]
+                return render(request, 'content/add_comment.html', {'cont_id':cont_id, 'c_comment':c_comment, 'user':request.user, 'messages':get_messages(request)})
             else:
                 return render(request, 'content/add_comment.html', {'cont_id':cont_id, 'user':request.user, 'messages':get_messages(request)})
-
 
         else:
             return HttpResponseRedirect(reverse('site_message'))
@@ -68,6 +81,11 @@ def show_comment(request):
                     return HttpResponseRedirect(reverse('site_message'))
                 else:
                     comm = c.comment_set.all()
+                    c_reverse = []
+                    for reverse_count in comm:
+                        c_reverse.append(reverse_count)
+                    c_reverse.reverse()
+                    comm = c_reverse[:]
                 return render(request, 'content/show_comment.html', {'comment':comm, 'user':request.user, 'messages':get_messages(request)})
             else:
                 return HttpResponseRedirect(reverse('site_message'))

@@ -198,7 +198,7 @@
                                         </p>
                                       </div>
                                       <div class="extra">
-                                      <div class="ui four tiny buttons">
+                                      <div class="ui three tiny buttons">
 
 
 
@@ -240,16 +240,6 @@
             				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="评论"-->
                                             </form>
 
-
-                                            <form class="ui form" action="{% url 'show_comment' %}" method="POST">
-                                                {% csrf_token %}
-                                                <div class="field">
-                                                    <input type="hidden" name="cont_id" value={{ each_cont.1.id }} > </input>
-                                                    <button class="ui purple button inverted" type="submit">查看评论</button>&nbsp
-                                                </div>
-                                                <!--input type="hidden" name="cont_id" value={{ each_cont.1.id }} > </input>
-            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="查看评论"-->
-                                            </form>
                                           {% if user.profile.id == each_cont.1.profile.id %}
                                             <form class="ui form" action="{% url 'delete_content' %}" method="POST">
                                                 {% csrf_token %}
@@ -305,7 +295,7 @@
                             <p>{{ top.text }}</p>
                         </div>
                         <div class="extra">
-                                      <div class="ui four tiny buttons">
+                                      <div class="ui three tiny buttons">
                                       <form class="ui form">
                                         <div class="field">
                                         <button class="ui disabled red button">
@@ -333,16 +323,6 @@
             				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="评论"-->
                                             </form>
 
-
-                                            <form class="ui form" action="{% url 'show_comment' %}" method="POST">
-                                                {% csrf_token %}
-                                                <div class="field">
-                                                    <input type="hidden" name="cont_id" value={{ top.id }} > </input>
-                                                    <button class="ui purple button inverted" type="submit">查看评论</button>&nbsp
-                                                </div>
-                                                <!--input type="hidden" name="cont_id" value={{ top.id }} > </input>
-            				    			    <input class="btn btn-primary" style="height:30px;width:60%" type="submit" name="submit" value="查看评论"-->
-                                            </form>
             				    		</div>
 
                                       </div>
