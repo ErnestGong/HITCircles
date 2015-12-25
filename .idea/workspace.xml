@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b10e8798-4508-4356-8ff4-677e04c4e4c7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hitcircles/settings.py" afterPath="$PROJECT_DIR$/hitcircles/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hitcircles/views.py" afterPath="$PROJECT_DIR$/hitcircles/views.py" />
     </list>
     <ignored path="HITCircles.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -104,10 +105,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hitcircles/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5798969">
+            <state vertical-scroll-proportion="0.0">
               <caret line="30" column="14" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
               <folding />
             </state>
@@ -124,11 +125,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hitcircles/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="60" column="19" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.43943298">
+              <caret line="78" column="54" selection-start-line="78" selection-start-column="54" selection-end-line="78" selection-end-column="54" />
               <folding>
                 <element signature="e#25#53#0" expanded="true" />
               </folding>
@@ -223,8 +224,8 @@
         <option value="$PROJECT_DIR$/content/templates/content/follower.html" />
         <option value="$PROJECT_DIR$/content/templates/content/my_mainpage.html" />
         <option value="$PROJECT_DIR$/content/templates/content/show_comment.html" />
-        <option value="$PROJECT_DIR$/hitcircles/views.py" />
         <option value="$PROJECT_DIR$/hitcircles/settings.py" />
+        <option value="$PROJECT_DIR$/hitcircles/views.py" />
       </list>
     </option>
   </component>
@@ -1189,21 +1190,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hitcircles/views.py">
+    <entry file="file://$PROJECT_DIR$/hitcircles/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="60" column="19" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
-          <folding>
-            <element signature="e#25#53#0" expanded="true" />
-          </folding>
+          <caret line="30" column="14" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hitcircles/settings.py">
+    <entry file="file://$PROJECT_DIR$/hitcircles/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5798969">
-          <caret line="30" column="14" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
-          <folding />
+        <state vertical-scroll-proportion="0.43943298">
+          <caret line="78" column="54" selection-start-line="78" selection-start-column="54" selection-end-line="78" selection-end-column="54" />
+          <folding>
+            <element signature="e#25#53#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
